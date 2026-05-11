@@ -1,0 +1,70 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: duhaaa
+service: poll-voting-Duha
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: us-east-1
+environment:
+    EMAIL_USER: ${env:EMAIL_USER}
+    EMAIL_PASS: ${env:EMAIL_PASS}
+
+
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:PutItem
+            - dynamodb:GetItem
+            - dynamodb:UpdateItem
+            - dynamodb:Query
+            - dynamodb:Scan
+          Resource: "arn:aws:dynamodb:us-east-1:*:table/PollsTable_Duha"
+functions:
+  createPoll:
+    handler: createPoll.handler
+    events:
+      - http:
+          path: /polls
+          method: post
+          cors: true
+
+  getPoll:
+    handler: getPoll.handler
+    events:
+      - http:
+          path: /polls/{pollId}
+          method: get
+          cors: true
+
+  submitVote:
+    handler: submitVote.handler
+    events:
+      - http:
+          path: /polls/{pollId}/vote
+          method: post
+          cors: true
+
+  sendResults:
+    handler: sendResults.handler
+    events:
+      - http:
+          path: /polls/{pollId}/send
+          method: post
+          cors: true
+
+resources:
+  Resources:
+    PollsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: PollsTable_Duha
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: pollId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: pollId
+            KeyType: HASH
