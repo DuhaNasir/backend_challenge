@@ -1,12 +1,12 @@
 # "org" ensures this Service is used with the correct Serverless Framework Access Key.
 org: duhaaa
 service: poll-voting-Duha
-
+useDotenv: true
 provider:
   name: aws
   runtime: nodejs20.x
   region: us-east-1
-environment:
+  environment:
     EMAIL_USER: ${env:EMAIL_USER}
     EMAIL_PASS: ${env:EMAIL_PASS}
 

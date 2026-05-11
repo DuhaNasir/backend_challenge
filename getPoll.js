@@ -28,11 +28,14 @@ module.exports.handler = async (event) => {
     }
 
     // 4. إذا لقيناه، نرد ونرسل البيانات للواجهة
-    return {
+  return {
       statusCode: 200,
-      body: JSON.stringify(result.Item),
+      headers: {
+        "Access-Control-Allow-Origin": "*", // هذا الختم ضروري جداً!
+        "Access-Control-Allow-Credentials": true,
+      },
+      body: JSON.stringify(result.Item), // أو حسب اسم المتغير عندك اللي يرجع البيانات
     };
-
   } catch (error) {
     console.error(error);
     return {

@@ -27,11 +27,15 @@ module.exports.handler = async (event) => {
       })
     );
 
-    return {
+   return {
       statusCode: 200,
-      body: JSON.stringify({ 
-        message: "تم إنشاء التصويت بنجاح!", 
-        pollId: pollId 
+      headers: {
+        "Access-Control-Allow-Origin": "*", // هذا هو الختم السحري اللي بيحل المشكلة!
+        "Access-Control-Allow-Credentials": true,
+      },
+      body: JSON.stringify({
+        message: "Poll created successfully!",
+        pollId: pollId,
       }),
     };
 

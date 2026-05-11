@@ -52,15 +52,23 @@ module.exports.handler = async (event) => {
       text: emailText
     });
 
-    return {
+   return {
       statusCode: 200,
-      body: JSON.stringify({ message: "تم إرسال النتائج بنجاح!" }),
+      headers: {
+        "Access-Control-Allow-Origin": "*", // هذا الختم ضروري!
+        "Access-Control-Allow-Credentials": true,
+      },
+      body: JSON.stringify({ message: "تم الإرسال بنجاح" }),
     };
 
   } catch (error) {
-    console.error(error);
+    console.error("تفاصيل الخطأ السري:", error);
     return {
       statusCode: 500,
+      headers: {
+        "Access-Control-Allow-Origin": "*", // الختم هنا كمان!
+        "Access-Control-Allow-Credentials": true,
+      },
       body: JSON.stringify({ message: "فشل إرسال الإيميل" }),
     };
   }

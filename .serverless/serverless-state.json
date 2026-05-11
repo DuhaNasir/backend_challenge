@@ -10,7 +10,7 @@
       "region": "us-east-1",
       "environment": {
         "EMAIL_USER": "Duhaneesr@gmail.com",
-        "EMAIL_PASS": "pueb buxz zftc xzyk"
+        "EMAIL_PASS": "btpr jvdc xklt phfp"
       },
       "iam": {
         "role": {
@@ -145,7 +145,7 @@
             "Properties": {
               "Code": {
                 "S3Bucket": "serverless-framework-deployments-us-east-1-c18f6ef0-ed15",
-                "S3Key": "serverless/poll-voting-Duha/dev/1778497008078-2026-05-11T10:56:48.078Z/poll-voting-Duha.zip"
+                "S3Key": "serverless/poll-voting-Duha/dev/1778509194302-2026-05-11T14:19:54.302Z/poll-voting-Duha.zip"
               },
               "Handler": "createPoll.handler",
               "Runtime": "nodejs20.x",
@@ -155,7 +155,7 @@
               "Environment": {
                 "Variables": {
                   "EMAIL_USER": "Duhaneesr@gmail.com",
-                  "EMAIL_PASS": "pueb buxz zftc xzyk"
+                  "EMAIL_PASS": "btpr jvdc xklt phfp"
                 }
               },
               "Role": {
@@ -174,7 +174,7 @@
             "Properties": {
               "Code": {
                 "S3Bucket": "serverless-framework-deployments-us-east-1-c18f6ef0-ed15",
-                "S3Key": "serverless/poll-voting-Duha/dev/1778497008078-2026-05-11T10:56:48.078Z/poll-voting-Duha.zip"
+                "S3Key": "serverless/poll-voting-Duha/dev/1778509194302-2026-05-11T14:19:54.302Z/poll-voting-Duha.zip"
               },
               "Handler": "getPoll.handler",
               "Runtime": "nodejs20.x",
@@ -184,7 +184,7 @@
               "Environment": {
                 "Variables": {
                   "EMAIL_USER": "Duhaneesr@gmail.com",
-                  "EMAIL_PASS": "pueb buxz zftc xzyk"
+                  "EMAIL_PASS": "btpr jvdc xklt phfp"
                 }
               },
               "Role": {
@@ -203,7 +203,7 @@
             "Properties": {
               "Code": {
                 "S3Bucket": "serverless-framework-deployments-us-east-1-c18f6ef0-ed15",
-                "S3Key": "serverless/poll-voting-Duha/dev/1778497008078-2026-05-11T10:56:48.078Z/poll-voting-Duha.zip"
+                "S3Key": "serverless/poll-voting-Duha/dev/1778509194302-2026-05-11T14:19:54.302Z/poll-voting-Duha.zip"
               },
               "Handler": "submitVote.handler",
               "Runtime": "nodejs20.x",
@@ -213,7 +213,7 @@
               "Environment": {
                 "Variables": {
                   "EMAIL_USER": "Duhaneesr@gmail.com",
-                  "EMAIL_PASS": "pueb buxz zftc xzyk"
+                  "EMAIL_PASS": "btpr jvdc xklt phfp"
                 }
               },
               "Role": {
@@ -232,7 +232,7 @@
             "Properties": {
               "Code": {
                 "S3Bucket": "serverless-framework-deployments-us-east-1-c18f6ef0-ed15",
-                "S3Key": "serverless/poll-voting-Duha/dev/1778497008078-2026-05-11T10:56:48.078Z/poll-voting-Duha.zip"
+                "S3Key": "serverless/poll-voting-Duha/dev/1778509194302-2026-05-11T14:19:54.302Z/poll-voting-Duha.zip"
               },
               "Handler": "sendResults.handler",
               "Runtime": "nodejs20.x",
@@ -242,7 +242,7 @@
               "Environment": {
                 "Variables": {
                   "EMAIL_USER": "Duhaneesr@gmail.com",
-                  "EMAIL_PASS": "pueb buxz zftc xzyk"
+                  "EMAIL_PASS": "btpr jvdc xklt phfp"
                 }
               },
               "Role": {
@@ -256,44 +256,44 @@
               "SendResultsLogGroup"
             ]
           },
-          "CreatePollLambdaVersionb8Lv9FaXtYdgSyelOay7sSoDjThXpRH0TpBd0udBg": {
+          "CreatePollLambdaVersionWJozg51rFTRyo1v5SEI5Ea1a4fVY98gnKzzJs5rQIRk": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "CreatePollLambdaFunction"
               },
-              "CodeSha256": "Z03QsX0mr/n1yCmnWtkE6tZGJ8ANdKG5hx6wMi4sY/w="
+              "CodeSha256": "K7y9D0AM3z8Ezbn3FpTz8kkrA1IhzhRNcSC7SozdAQI="
             }
           },
-          "GetPollLambdaVersionf10LWTWAOyo37iaNGwQwNhfsYBm4jJnTn4Aeo4cUvU": {
+          "GetPollLambdaVersionfSDXS76ioQ6L8bzZCKzX2zEy186qcsSsNI35IOckk4": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "GetPollLambdaFunction"
               },
-              "CodeSha256": "Z03QsX0mr/n1yCmnWtkE6tZGJ8ANdKG5hx6wMi4sY/w="
+              "CodeSha256": "K7y9D0AM3z8Ezbn3FpTz8kkrA1IhzhRNcSC7SozdAQI="
             }
           },
-          "SubmitVoteLambdaVersionuBg6I8Xs1rXKaRIBavTFjzbaTGHBqsVXsDVhAnDg": {
+          "SubmitVoteLambdaVersiondagVM8cxhW9UstoETvBQy2lXdMGPWWyxPbjhuUzk": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "SubmitVoteLambdaFunction"
               },
-              "CodeSha256": "Z03QsX0mr/n1yCmnWtkE6tZGJ8ANdKG5hx6wMi4sY/w="
+              "CodeSha256": "K7y9D0AM3z8Ezbn3FpTz8kkrA1IhzhRNcSC7SozdAQI="
             }
           },
-          "SendResultsLambdaVersionldbYuXeSJCVhgBxkxjG8Far9QJYMjIOYBcR9HpnNhxQ": {
+          "SendResultsLambdaVersionv6F8UqI7ylPkvgm6bhHKFSUjHrqDppxzlskZsqY4": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "SendResultsLambdaFunction"
               },
-              "CodeSha256": "Z03QsX0mr/n1yCmnWtkE6tZGJ8ANdKG5hx6wMi4sY/w="
+              "CodeSha256": "K7y9D0AM3z8Ezbn3FpTz8kkrA1IhzhRNcSC7SozdAQI="
             }
           },
           "ApiGatewayRestApi": {
@@ -723,7 +723,7 @@
               "SendResultsLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1778496996233": {
+          "ApiGatewayDeployment1778509165514": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -920,7 +920,7 @@
           "CreatePollLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "CreatePollLambdaVersionb8Lv9FaXtYdgSyelOay7sSoDjThXpRH0TpBd0udBg"
+              "Ref": "CreatePollLambdaVersionWJozg51rFTRyo1v5SEI5Ea1a4fVY98gnKzzJs5rQIRk"
             },
             "Export": {
               "Name": "sls-poll-voting-Duha-dev-CreatePollLambdaFunctionQualifiedArn"
@@ -929,7 +929,7 @@
           "GetPollLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "GetPollLambdaVersionf10LWTWAOyo37iaNGwQwNhfsYBm4jJnTn4Aeo4cUvU"
+              "Ref": "GetPollLambdaVersionfSDXS76ioQ6L8bzZCKzX2zEy186qcsSsNI35IOckk4"
             },
             "Export": {
               "Name": "sls-poll-voting-Duha-dev-GetPollLambdaFunctionQualifiedArn"
@@ -938,7 +938,7 @@
           "SubmitVoteLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "SubmitVoteLambdaVersionuBg6I8Xs1rXKaRIBavTFjzbaTGHBqsVXsDVhAnDg"
+              "Ref": "SubmitVoteLambdaVersiondagVM8cxhW9UstoETvBQy2lXdMGPWWyxPbjhuUzk"
             },
             "Export": {
               "Name": "sls-poll-voting-Duha-dev-SubmitVoteLambdaFunctionQualifiedArn"
@@ -947,7 +947,7 @@
           "SendResultsLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "SendResultsLambdaVersionldbYuXeSJCVhgBxkxjG8Far9QJYMjIOYBcR9HpnNhxQ"
+              "Ref": "SendResultsLambdaVersionv6F8UqI7ylPkvgm6bhHKFSUjHrqDppxzlskZsqY4"
             },
             "Export": {
               "Name": "sls-poll-voting-Duha-dev-SendResultsLambdaFunctionQualifiedArn"
@@ -1019,7 +1019,7 @@
         "timeout": 6,
         "runtime": "nodejs20.x",
         "vpc": {},
-        "versionLogicalId": "CreatePollLambdaVersionb8Lv9FaXtYdgSyelOay7sSoDjThXpRH0TpBd0udBg"
+        "versionLogicalId": "CreatePollLambdaVersionWJozg51rFTRyo1v5SEI5Ea1a4fVY98gnKzzJs5rQIRk"
       },
       "getPoll": {
         "handler": "getPoll.handler",
@@ -1055,7 +1055,7 @@
         "timeout": 6,
         "runtime": "nodejs20.x",
         "vpc": {},
-        "versionLogicalId": "GetPollLambdaVersionf10LWTWAOyo37iaNGwQwNhfsYBm4jJnTn4Aeo4cUvU"
+        "versionLogicalId": "GetPollLambdaVersionfSDXS76ioQ6L8bzZCKzX2zEy186qcsSsNI35IOckk4"
       },
       "submitVote": {
         "handler": "submitVote.handler",
@@ -1091,7 +1091,7 @@
         "timeout": 6,
         "runtime": "nodejs20.x",
         "vpc": {},
-        "versionLogicalId": "SubmitVoteLambdaVersionuBg6I8Xs1rXKaRIBavTFjzbaTGHBqsVXsDVhAnDg"
+        "versionLogicalId": "SubmitVoteLambdaVersiondagVM8cxhW9UstoETvBQy2lXdMGPWWyxPbjhuUzk"
       },
       "sendResults": {
         "handler": "sendResults.handler",
@@ -1127,7 +1127,7 @@
         "timeout": 6,
         "runtime": "nodejs20.x",
         "vpc": {},
-        "versionLogicalId": "SendResultsLambdaVersionldbYuXeSJCVhgBxkxjG8Far9QJYMjIOYBcR9HpnNhxQ"
+        "versionLogicalId": "SendResultsLambdaVersionv6F8UqI7ylPkvgm6bhHKFSUjHrqDppxzlskZsqY4"
       }
     },
     "resources": {
@@ -1159,6 +1159,7 @@
     "initialServerlessConfig": {
       "org": "duhaaa",
       "service": "poll-voting-Duha",
+      "useDotenv": true,
       "provider": {
         "$ref": "$[\"service\"][\"provider\"]"
       },
@@ -1176,7 +1177,7 @@
     "artifact": "C:\\Users\\Public\\OneDrive\\سطح المكتب\\Projects\\Alshamai\\backend-challengee\\.serverless\\poll-voting-Duha.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/poll-voting-Duha/dev/1778497008078-2026-05-11T10:56:48.078Z",
+    "artifactDirectoryName": "serverless/poll-voting-Duha/dev/1778509194302-2026-05-11T14:19:54.302Z",
     "artifact": "poll-voting-Duha.zip"
   }
 }
