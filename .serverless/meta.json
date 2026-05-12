@@ -38,22 +38,28 @@
           "AWSTemplateFormatVersion": "2010-09-09",
           "Description": "The AWS CloudFormation template for this Serverless application",
           "Resources": {
-            "CreatePollLogGroup": {
-              "Type": "AWS::Logs::LogGroup",
-              "Properties": {
-                "LogGroupName": "/aws/lambda/poll-voting-Duha-dev-createPoll"
-              }
-            },
             "GetPollLogGroup": {
               "Type": "AWS::Logs::LogGroup",
               "Properties": {
                 "LogGroupName": "/aws/lambda/poll-voting-Duha-dev-getPoll"
               }
             },
-            "SubmitVoteLogGroup": {
+            "GetAllPollsLogGroup": {
               "Type": "AWS::Logs::LogGroup",
               "Properties": {
-                "LogGroupName": "/aws/lambda/poll-voting-Duha-dev-submitVote"
+                "LogGroupName": "/aws/lambda/poll-voting-Duha-dev-getAllPolls"
+              }
+            },
+            "CreatePollLogGroup": {
+              "Type": "AWS::Logs::LogGroup",
+              "Properties": {
+                "LogGroupName": "/aws/lambda/poll-voting-Duha-dev-createPoll"
+              }
+            },
+            "VotePollLogGroup": {
+              "Type": "AWS::Logs::LogGroup",
+              "Properties": {
+                "LogGroupName": "/aws/lambda/poll-voting-Duha-dev-votePoll"
               }
             },
             "SendResultsLogGroup": {
@@ -151,41 +157,12 @@
                 }
               }
             },
-            "CreatePollLambdaFunction": {
-              "Type": "AWS::Lambda::Function",
-              "Properties": {
-                "Code": {
-                  "S3Bucket": "serverless-framework-deployments-us-east-1-c18f6ef0-ed15",
-                  "S3Key": "serverless/poll-voting-Duha/dev/1778509194302-2026-05-11T14:19:54.302Z/poll-voting-Duha.zip"
-                },
-                "Handler": "createPoll.handler",
-                "Runtime": "nodejs20.x",
-                "FunctionName": "poll-voting-Duha-dev-createPoll",
-                "MemorySize": 1024,
-                "Timeout": 6,
-                "Environment": {
-                  "Variables": {
-                    "EMAIL_USER": "Duhaneesr@gmail.com",
-                    "EMAIL_PASS": "btpr jvdc xklt phfp"
-                  }
-                },
-                "Role": {
-                  "Fn::GetAtt": [
-                    "IamRoleLambdaExecution",
-                    "Arn"
-                  ]
-                }
-              },
-              "DependsOn": [
-                "CreatePollLogGroup"
-              ]
-            },
             "GetPollLambdaFunction": {
               "Type": "AWS::Lambda::Function",
               "Properties": {
                 "Code": {
                   "S3Bucket": "serverless-framework-deployments-us-east-1-c18f6ef0-ed15",
-                  "S3Key": "serverless/poll-voting-Duha/dev/1778509194302-2026-05-11T14:19:54.302Z/poll-voting-Duha.zip"
+                  "S3Key": "serverless/poll-voting-Duha/dev/1778559524333-2026-05-12T04:18:44.333Z/poll-voting-Duha.zip"
                 },
                 "Handler": "getPoll.handler",
                 "Runtime": "nodejs20.x",
@@ -209,16 +186,16 @@
                 "GetPollLogGroup"
               ]
             },
-            "SubmitVoteLambdaFunction": {
+            "GetAllPollsLambdaFunction": {
               "Type": "AWS::Lambda::Function",
               "Properties": {
                 "Code": {
                   "S3Bucket": "serverless-framework-deployments-us-east-1-c18f6ef0-ed15",
-                  "S3Key": "serverless/poll-voting-Duha/dev/1778509194302-2026-05-11T14:19:54.302Z/poll-voting-Duha.zip"
+                  "S3Key": "serverless/poll-voting-Duha/dev/1778559524333-2026-05-12T04:18:44.333Z/poll-voting-Duha.zip"
                 },
-                "Handler": "submitVote.handler",
+                "Handler": "getAllPolls.handler",
                 "Runtime": "nodejs20.x",
-                "FunctionName": "poll-voting-Duha-dev-submitVote",
+                "FunctionName": "poll-voting-Duha-dev-getAllPolls",
                 "MemorySize": 1024,
                 "Timeout": 6,
                 "Environment": {
@@ -235,7 +212,65 @@
                 }
               },
               "DependsOn": [
-                "SubmitVoteLogGroup"
+                "GetAllPollsLogGroup"
+              ]
+            },
+            "CreatePollLambdaFunction": {
+              "Type": "AWS::Lambda::Function",
+              "Properties": {
+                "Code": {
+                  "S3Bucket": "serverless-framework-deployments-us-east-1-c18f6ef0-ed15",
+                  "S3Key": "serverless/poll-voting-Duha/dev/1778559524333-2026-05-12T04:18:44.333Z/poll-voting-Duha.zip"
+                },
+                "Handler": "createPoll.handler",
+                "Runtime": "nodejs20.x",
+                "FunctionName": "poll-voting-Duha-dev-createPoll",
+                "MemorySize": 1024,
+                "Timeout": 6,
+                "Environment": {
+                  "Variables": {
+                    "EMAIL_USER": "Duhaneesr@gmail.com",
+                    "EMAIL_PASS": "btpr jvdc xklt phfp"
+                  }
+                },
+                "Role": {
+                  "Fn::GetAtt": [
+                    "IamRoleLambdaExecution",
+                    "Arn"
+                  ]
+                }
+              },
+              "DependsOn": [
+                "CreatePollLogGroup"
+              ]
+            },
+            "VotePollLambdaFunction": {
+              "Type": "AWS::Lambda::Function",
+              "Properties": {
+                "Code": {
+                  "S3Bucket": "serverless-framework-deployments-us-east-1-c18f6ef0-ed15",
+                  "S3Key": "serverless/poll-voting-Duha/dev/1778559524333-2026-05-12T04:18:44.333Z/poll-voting-Duha.zip"
+                },
+                "Handler": "submitVote.handler",
+                "Runtime": "nodejs20.x",
+                "FunctionName": "poll-voting-Duha-dev-votePoll",
+                "MemorySize": 1024,
+                "Timeout": 6,
+                "Environment": {
+                  "Variables": {
+                    "EMAIL_USER": "Duhaneesr@gmail.com",
+                    "EMAIL_PASS": "btpr jvdc xklt phfp"
+                  }
+                },
+                "Role": {
+                  "Fn::GetAtt": [
+                    "IamRoleLambdaExecution",
+                    "Arn"
+                  ]
+                }
+              },
+              "DependsOn": [
+                "VotePollLogGroup"
               ]
             },
             "SendResultsLambdaFunction": {
@@ -243,7 +278,7 @@
               "Properties": {
                 "Code": {
                   "S3Bucket": "serverless-framework-deployments-us-east-1-c18f6ef0-ed15",
-                  "S3Key": "serverless/poll-voting-Duha/dev/1778509194302-2026-05-11T14:19:54.302Z/poll-voting-Duha.zip"
+                  "S3Key": "serverless/poll-voting-Duha/dev/1778559524333-2026-05-12T04:18:44.333Z/poll-voting-Duha.zip"
                 },
                 "Handler": "sendResults.handler",
                 "Runtime": "nodejs20.x",
@@ -267,44 +302,54 @@
                 "SendResultsLogGroup"
               ]
             },
-            "CreatePollLambdaVersionWJozg51rFTRyo1v5SEI5Ea1a4fVY98gnKzzJs5rQIRk": {
-              "Type": "AWS::Lambda::Version",
-              "DeletionPolicy": "Retain",
-              "Properties": {
-                "FunctionName": {
-                  "Ref": "CreatePollLambdaFunction"
-                },
-                "CodeSha256": "K7y9D0AM3z8Ezbn3FpTz8kkrA1IhzhRNcSC7SozdAQI="
-              }
-            },
-            "GetPollLambdaVersionfSDXS76ioQ6L8bzZCKzX2zEy186qcsSsNI35IOckk4": {
+            "GetPollLambdaVersiontICH0fprvZLNY4Kqg6YTdwhLsf9J1z73dOmuF8AuYN8": {
               "Type": "AWS::Lambda::Version",
               "DeletionPolicy": "Retain",
               "Properties": {
                 "FunctionName": {
                   "Ref": "GetPollLambdaFunction"
                 },
-                "CodeSha256": "K7y9D0AM3z8Ezbn3FpTz8kkrA1IhzhRNcSC7SozdAQI="
+                "CodeSha256": "vyKACwN1ra23a07TnibuyvhivbVMtXUTWfjasu+EgTE="
               }
             },
-            "SubmitVoteLambdaVersiondagVM8cxhW9UstoETvBQy2lXdMGPWWyxPbjhuUzk": {
+            "GetAllPollsLambdaVersionRmimWJvC1DQdo3vAiVGHlVEK4nQuxLRCHe1eoQSSU": {
               "Type": "AWS::Lambda::Version",
               "DeletionPolicy": "Retain",
               "Properties": {
                 "FunctionName": {
-                  "Ref": "SubmitVoteLambdaFunction"
+                  "Ref": "GetAllPollsLambdaFunction"
                 },
-                "CodeSha256": "K7y9D0AM3z8Ezbn3FpTz8kkrA1IhzhRNcSC7SozdAQI="
+                "CodeSha256": "vyKACwN1ra23a07TnibuyvhivbVMtXUTWfjasu+EgTE="
               }
             },
-            "SendResultsLambdaVersionv6F8UqI7ylPkvgm6bhHKFSUjHrqDppxzlskZsqY4": {
+            "CreatePollLambdaVersionWbw3Pe4EUXTY94uSlfrfh8uIuuqGo6BSpmvWX2PIA": {
+              "Type": "AWS::Lambda::Version",
+              "DeletionPolicy": "Retain",
+              "Properties": {
+                "FunctionName": {
+                  "Ref": "CreatePollLambdaFunction"
+                },
+                "CodeSha256": "vyKACwN1ra23a07TnibuyvhivbVMtXUTWfjasu+EgTE="
+              }
+            },
+            "VotePollLambdaVersion0tSjJrcLPYfSSVnYUOYmTmGvO8cEzW0DKsPcOSvk": {
+              "Type": "AWS::Lambda::Version",
+              "DeletionPolicy": "Retain",
+              "Properties": {
+                "FunctionName": {
+                  "Ref": "VotePollLambdaFunction"
+                },
+                "CodeSha256": "vyKACwN1ra23a07TnibuyvhivbVMtXUTWfjasu+EgTE="
+              }
+            },
+            "SendResultsLambdaVersionNiJsT7DUmgOg3uj6ws2bNmXg7egpCPgIDlIR0HMs": {
               "Type": "AWS::Lambda::Version",
               "DeletionPolicy": "Retain",
               "Properties": {
                 "FunctionName": {
                   "Ref": "SendResultsLambdaFunction"
                 },
-                "CodeSha256": "K7y9D0AM3z8Ezbn3FpTz8kkrA1IhzhRNcSC7SozdAQI="
+                "CodeSha256": "vyKACwN1ra23a07TnibuyvhivbVMtXUTWfjasu+EgTE="
               }
             },
             "ApiGatewayRestApi": {
@@ -370,51 +415,6 @@
                 }
               }
             },
-            "ApiGatewayMethodPollsOptions": {
-              "Type": "AWS::ApiGateway::Method",
-              "Properties": {
-                "AuthorizationType": "NONE",
-                "HttpMethod": "OPTIONS",
-                "MethodResponses": [
-                  {
-                    "StatusCode": "200",
-                    "ResponseParameters": {
-                      "method.response.header.Access-Control-Allow-Origin": true,
-                      "method.response.header.Access-Control-Allow-Headers": true,
-                      "method.response.header.Access-Control-Allow-Methods": true
-                    },
-                    "ResponseModels": {}
-                  }
-                ],
-                "RequestParameters": {},
-                "Integration": {
-                  "Type": "MOCK",
-                  "RequestTemplates": {
-                    "application/json": "{statusCode:200}"
-                  },
-                  "ContentHandling": "CONVERT_TO_TEXT",
-                  "IntegrationResponses": [
-                    {
-                      "StatusCode": "200",
-                      "ResponseParameters": {
-                        "method.response.header.Access-Control-Allow-Origin": "'*'",
-                        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id'",
-                        "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST'"
-                      },
-                      "ResponseTemplates": {
-                        "application/json": ""
-                      }
-                    }
-                  ]
-                },
-                "ResourceId": {
-                  "Ref": "ApiGatewayResourcePolls"
-                },
-                "RestApiId": {
-                  "Ref": "ApiGatewayRestApi"
-                }
-              }
-            },
             "ApiGatewayMethodPollsPollidVarOptions": {
               "Type": "AWS::ApiGateway::Method",
               "Properties": {
@@ -454,6 +454,51 @@
                 },
                 "ResourceId": {
                   "Ref": "ApiGatewayResourcePollsPollidVar"
+                },
+                "RestApiId": {
+                  "Ref": "ApiGatewayRestApi"
+                }
+              }
+            },
+            "ApiGatewayMethodPollsOptions": {
+              "Type": "AWS::ApiGateway::Method",
+              "Properties": {
+                "AuthorizationType": "NONE",
+                "HttpMethod": "OPTIONS",
+                "MethodResponses": [
+                  {
+                    "StatusCode": "200",
+                    "ResponseParameters": {
+                      "method.response.header.Access-Control-Allow-Origin": true,
+                      "method.response.header.Access-Control-Allow-Headers": true,
+                      "method.response.header.Access-Control-Allow-Methods": true
+                    },
+                    "ResponseModels": {}
+                  }
+                ],
+                "RequestParameters": {},
+                "Integration": {
+                  "Type": "MOCK",
+                  "RequestTemplates": {
+                    "application/json": "{statusCode:200}"
+                  },
+                  "ContentHandling": "CONVERT_TO_TEXT",
+                  "IntegrationResponses": [
+                    {
+                      "StatusCode": "200",
+                      "ResponseParameters": {
+                        "method.response.header.Access-Control-Allow-Origin": "'*'",
+                        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id'",
+                        "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST,GET'"
+                      },
+                      "ResponseTemplates": {
+                        "application/json": ""
+                      }
+                    }
+                  ]
+                },
+                "ResourceId": {
+                  "Ref": "ApiGatewayResourcePolls"
                 },
                 "RestApiId": {
                   "Ref": "ApiGatewayRestApi"
@@ -550,52 +595,6 @@
                 }
               }
             },
-            "ApiGatewayMethodPollsPost": {
-              "Type": "AWS::ApiGateway::Method",
-              "Properties": {
-                "HttpMethod": "POST",
-                "RequestParameters": {},
-                "ResourceId": {
-                  "Ref": "ApiGatewayResourcePolls"
-                },
-                "RestApiId": {
-                  "Ref": "ApiGatewayRestApi"
-                },
-                "ApiKeyRequired": "<REDACTED>",
-                "AuthorizationType": "NONE",
-                "Integration": {
-                  "IntegrationHttpMethod": "POST",
-                  "Type": "AWS_PROXY",
-                  "Uri": {
-                    "Fn::Join": [
-                      "",
-                      [
-                        "arn:",
-                        {
-                          "Ref": "AWS::Partition"
-                        },
-                        ":apigateway:",
-                        {
-                          "Ref": "AWS::Region"
-                        },
-                        ":lambda:path/2015-03-31/functions/",
-                        {
-                          "Fn::GetAtt": [
-                            "CreatePollLambdaFunction",
-                            "Arn"
-                          ]
-                        },
-                        "/invocations"
-                      ]
-                    ]
-                  }
-                },
-                "MethodResponses": []
-              },
-              "DependsOn": [
-                "CreatePollLambdaPermissionApiGateway"
-              ]
-            },
             "ApiGatewayMethodPollsPollidVarGet": {
               "Type": "AWS::ApiGateway::Method",
               "Properties": {
@@ -642,6 +641,98 @@
                 "GetPollLambdaPermissionApiGateway"
               ]
             },
+            "ApiGatewayMethodPollsGet": {
+              "Type": "AWS::ApiGateway::Method",
+              "Properties": {
+                "HttpMethod": "GET",
+                "RequestParameters": {},
+                "ResourceId": {
+                  "Ref": "ApiGatewayResourcePolls"
+                },
+                "RestApiId": {
+                  "Ref": "ApiGatewayRestApi"
+                },
+                "ApiKeyRequired": "<REDACTED>",
+                "AuthorizationType": "NONE",
+                "Integration": {
+                  "IntegrationHttpMethod": "POST",
+                  "Type": "AWS_PROXY",
+                  "Uri": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":apigateway:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":lambda:path/2015-03-31/functions/",
+                        {
+                          "Fn::GetAtt": [
+                            "GetAllPollsLambdaFunction",
+                            "Arn"
+                          ]
+                        },
+                        "/invocations"
+                      ]
+                    ]
+                  }
+                },
+                "MethodResponses": []
+              },
+              "DependsOn": [
+                "GetAllPollsLambdaPermissionApiGateway"
+              ]
+            },
+            "ApiGatewayMethodPollsPost": {
+              "Type": "AWS::ApiGateway::Method",
+              "Properties": {
+                "HttpMethod": "POST",
+                "RequestParameters": {},
+                "ResourceId": {
+                  "Ref": "ApiGatewayResourcePolls"
+                },
+                "RestApiId": {
+                  "Ref": "ApiGatewayRestApi"
+                },
+                "ApiKeyRequired": "<REDACTED>",
+                "AuthorizationType": "NONE",
+                "Integration": {
+                  "IntegrationHttpMethod": "POST",
+                  "Type": "AWS_PROXY",
+                  "Uri": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":apigateway:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":lambda:path/2015-03-31/functions/",
+                        {
+                          "Fn::GetAtt": [
+                            "CreatePollLambdaFunction",
+                            "Arn"
+                          ]
+                        },
+                        "/invocations"
+                      ]
+                    ]
+                  }
+                },
+                "MethodResponses": []
+              },
+              "DependsOn": [
+                "CreatePollLambdaPermissionApiGateway"
+              ]
+            },
             "ApiGatewayMethodPollsPollidVarVotePost": {
               "Type": "AWS::ApiGateway::Method",
               "Properties": {
@@ -673,7 +764,7 @@
                         ":lambda:path/2015-03-31/functions/",
                         {
                           "Fn::GetAtt": [
-                            "SubmitVoteLambdaFunction",
+                            "VotePollLambdaFunction",
                             "Arn"
                           ]
                         },
@@ -685,7 +776,7 @@
                 "MethodResponses": []
               },
               "DependsOn": [
-                "SubmitVoteLambdaPermissionApiGateway"
+                "VotePollLambdaPermissionApiGateway"
               ]
             },
             "ApiGatewayMethodPollsPollidVarSendPost": {
@@ -734,7 +825,7 @@
                 "SendResultsLambdaPermissionApiGateway"
               ]
             },
-            "ApiGatewayDeployment1778509165514": {
+            "ApiGatewayDeployment1778559502926": {
               "Type": "AWS::ApiGateway::Deployment",
               "Properties": {
                 "RestApiId": {
@@ -743,52 +834,16 @@
                 "StageName": "dev"
               },
               "DependsOn": [
-                "ApiGatewayMethodPollsOptions",
                 "ApiGatewayMethodPollsPollidVarOptions",
+                "ApiGatewayMethodPollsOptions",
                 "ApiGatewayMethodPollsPollidVarVoteOptions",
                 "ApiGatewayMethodPollsPollidVarSendOptions",
-                "ApiGatewayMethodPollsPost",
                 "ApiGatewayMethodPollsPollidVarGet",
+                "ApiGatewayMethodPollsGet",
+                "ApiGatewayMethodPollsPost",
                 "ApiGatewayMethodPollsPollidVarVotePost",
                 "ApiGatewayMethodPollsPollidVarSendPost"
               ]
-            },
-            "CreatePollLambdaPermissionApiGateway": {
-              "Type": "AWS::Lambda::Permission",
-              "Properties": {
-                "FunctionName": {
-                  "Fn::GetAtt": [
-                    "CreatePollLambdaFunction",
-                    "Arn"
-                  ]
-                },
-                "Action": "lambda:InvokeFunction",
-                "Principal": "apigateway.amazonaws.com",
-                "SourceArn": {
-                  "Fn::Join": [
-                    "",
-                    [
-                      "arn:",
-                      {
-                        "Ref": "AWS::Partition"
-                      },
-                      ":execute-api:",
-                      {
-                        "Ref": "AWS::Region"
-                      },
-                      ":",
-                      {
-                        "Ref": "AWS::AccountId"
-                      },
-                      ":",
-                      {
-                        "Ref": "ApiGatewayRestApi"
-                      },
-                      "/*/*"
-                    ]
-                  ]
-                }
-              }
             },
             "GetPollLambdaPermissionApiGateway": {
               "Type": "AWS::Lambda::Permission",
@@ -827,12 +882,86 @@
                 }
               }
             },
-            "SubmitVoteLambdaPermissionApiGateway": {
+            "GetAllPollsLambdaPermissionApiGateway": {
               "Type": "AWS::Lambda::Permission",
               "Properties": {
                 "FunctionName": {
                   "Fn::GetAtt": [
-                    "SubmitVoteLambdaFunction",
+                    "GetAllPollsLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "Action": "lambda:InvokeFunction",
+                "Principal": "apigateway.amazonaws.com",
+                "SourceArn": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":execute-api:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":",
+                      {
+                        "Ref": "ApiGatewayRestApi"
+                      },
+                      "/*/*"
+                    ]
+                  ]
+                }
+              }
+            },
+            "CreatePollLambdaPermissionApiGateway": {
+              "Type": "AWS::Lambda::Permission",
+              "Properties": {
+                "FunctionName": {
+                  "Fn::GetAtt": [
+                    "CreatePollLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "Action": "lambda:InvokeFunction",
+                "Principal": "apigateway.amazonaws.com",
+                "SourceArn": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":execute-api:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":",
+                      {
+                        "Ref": "ApiGatewayRestApi"
+                      },
+                      "/*/*"
+                    ]
+                  ]
+                }
+              }
+            },
+            "VotePollLambdaPermissionApiGateway": {
+              "Type": "AWS::Lambda::Permission",
+              "Properties": {
+                "FunctionName": {
+                  "Fn::GetAtt": [
+                    "VotePollLambdaFunction",
                     "Arn"
                   ]
                 },
@@ -928,37 +1057,46 @@
                 "Name": "sls-poll-voting-Duha-dev-ServerlessDeploymentBucketName"
               }
             },
-            "CreatePollLambdaFunctionQualifiedArn": {
-              "Description": "Current Lambda function version",
-              "Value": {
-                "Ref": "CreatePollLambdaVersionWJozg51rFTRyo1v5SEI5Ea1a4fVY98gnKzzJs5rQIRk"
-              },
-              "Export": {
-                "Name": "sls-poll-voting-Duha-dev-CreatePollLambdaFunctionQualifiedArn"
-              }
-            },
             "GetPollLambdaFunctionQualifiedArn": {
               "Description": "Current Lambda function version",
               "Value": {
-                "Ref": "GetPollLambdaVersionfSDXS76ioQ6L8bzZCKzX2zEy186qcsSsNI35IOckk4"
+                "Ref": "GetPollLambdaVersiontICH0fprvZLNY4Kqg6YTdwhLsf9J1z73dOmuF8AuYN8"
               },
               "Export": {
                 "Name": "sls-poll-voting-Duha-dev-GetPollLambdaFunctionQualifiedArn"
               }
             },
-            "SubmitVoteLambdaFunctionQualifiedArn": {
+            "GetAllPollsLambdaFunctionQualifiedArn": {
               "Description": "Current Lambda function version",
               "Value": {
-                "Ref": "SubmitVoteLambdaVersiondagVM8cxhW9UstoETvBQy2lXdMGPWWyxPbjhuUzk"
+                "Ref": "GetAllPollsLambdaVersionRmimWJvC1DQdo3vAiVGHlVEK4nQuxLRCHe1eoQSSU"
               },
               "Export": {
-                "Name": "sls-poll-voting-Duha-dev-SubmitVoteLambdaFunctionQualifiedArn"
+                "Name": "sls-poll-voting-Duha-dev-GetAllPollsLambdaFunctionQualifiedArn"
+              }
+            },
+            "CreatePollLambdaFunctionQualifiedArn": {
+              "Description": "Current Lambda function version",
+              "Value": {
+                "Ref": "CreatePollLambdaVersionWbw3Pe4EUXTY94uSlfrfh8uIuuqGo6BSpmvWX2PIA"
+              },
+              "Export": {
+                "Name": "sls-poll-voting-Duha-dev-CreatePollLambdaFunctionQualifiedArn"
+              }
+            },
+            "VotePollLambdaFunctionQualifiedArn": {
+              "Description": "Current Lambda function version",
+              "Value": {
+                "Ref": "VotePollLambdaVersion0tSjJrcLPYfSSVnYUOYmTmGvO8cEzW0DKsPcOSvk"
+              },
+              "Export": {
+                "Name": "sls-poll-voting-Duha-dev-VotePollLambdaFunctionQualifiedArn"
               }
             },
             "SendResultsLambdaFunctionQualifiedArn": {
               "Description": "Current Lambda function version",
               "Value": {
-                "Ref": "SendResultsLambdaVersionv6F8UqI7ylPkvgm6bhHKFSUjHrqDppxzlskZsqY4"
+                "Ref": "SendResultsLambdaVersionNiJsT7DUmgOg3uj6ws2bNmXg7egpCPgIDlIR0HMs"
               },
               "Export": {
                 "Name": "sls-poll-voting-Duha-dev-SendResultsLambdaFunctionQualifiedArn"
@@ -995,42 +1133,6 @@
         "vpc": {}
       },
       "functions": {
-        "createPoll": {
-          "handler": "createPoll.handler",
-          "events": [
-            {
-              "http": {
-                "path": "polls",
-                "method": "post",
-                "cors": {
-                  "origin": "*",
-                  "methods": [
-                    "OPTIONS",
-                    "POST"
-                  ],
-                  "headers": [
-                    "Content-Type",
-                    "X-Amz-Date",
-                    "Authorization",
-                    "X-Api-Key",
-                    "X-Amz-Security-Token",
-                    "X-Amz-User-Agent",
-                    "X-Amzn-Trace-Id"
-                  ],
-                  "allowCredentials": "<REDACTED>"
-                },
-                "integration": "AWS_PROXY"
-              }
-            }
-          ],
-          "name": "poll-voting-Duha-dev-createPoll",
-          "package": {},
-          "memory": 1024,
-          "timeout": 6,
-          "runtime": "nodejs20.x",
-          "vpc": {},
-          "versionLogicalId": "CreatePollLambdaVersionWJozg51rFTRyo1v5SEI5Ea1a4fVY98gnKzzJs5rQIRk"
-        },
         "getPoll": {
           "handler": "getPoll.handler",
           "events": [
@@ -1065,9 +1167,81 @@
           "timeout": 6,
           "runtime": "nodejs20.x",
           "vpc": {},
-          "versionLogicalId": "GetPollLambdaVersionfSDXS76ioQ6L8bzZCKzX2zEy186qcsSsNI35IOckk4"
+          "versionLogicalId": "GetPollLambdaVersiontICH0fprvZLNY4Kqg6YTdwhLsf9J1z73dOmuF8AuYN8"
         },
-        "submitVote": {
+        "getAllPolls": {
+          "handler": "getAllPolls.handler",
+          "events": [
+            {
+              "http": {
+                "path": "polls",
+                "method": "get",
+                "cors": {
+                  "origin": "*",
+                  "methods": [
+                    "OPTIONS",
+                    "GET"
+                  ],
+                  "headers": [
+                    "Content-Type",
+                    "X-Amz-Date",
+                    "Authorization",
+                    "X-Api-Key",
+                    "X-Amz-Security-Token",
+                    "X-Amz-User-Agent",
+                    "X-Amzn-Trace-Id"
+                  ],
+                  "allowCredentials": "<REDACTED>"
+                },
+                "integration": "AWS_PROXY"
+              }
+            }
+          ],
+          "name": "poll-voting-Duha-dev-getAllPolls",
+          "package": {},
+          "memory": 1024,
+          "timeout": 6,
+          "runtime": "nodejs20.x",
+          "vpc": {},
+          "versionLogicalId": "GetAllPollsLambdaVersionRmimWJvC1DQdo3vAiVGHlVEK4nQuxLRCHe1eoQSSU"
+        },
+        "createPoll": {
+          "handler": "createPoll.handler",
+          "events": [
+            {
+              "http": {
+                "path": "polls",
+                "method": "post",
+                "cors": {
+                  "origin": "*",
+                  "methods": [
+                    "OPTIONS",
+                    "POST"
+                  ],
+                  "headers": [
+                    "Content-Type",
+                    "X-Amz-Date",
+                    "Authorization",
+                    "X-Api-Key",
+                    "X-Amz-Security-Token",
+                    "X-Amz-User-Agent",
+                    "X-Amzn-Trace-Id"
+                  ],
+                  "allowCredentials": "<REDACTED>"
+                },
+                "integration": "AWS_PROXY"
+              }
+            }
+          ],
+          "name": "poll-voting-Duha-dev-createPoll",
+          "package": {},
+          "memory": 1024,
+          "timeout": 6,
+          "runtime": "nodejs20.x",
+          "vpc": {},
+          "versionLogicalId": "CreatePollLambdaVersionWbw3Pe4EUXTY94uSlfrfh8uIuuqGo6BSpmvWX2PIA"
+        },
+        "votePoll": {
           "handler": "submitVote.handler",
           "events": [
             {
@@ -1095,13 +1269,13 @@
               }
             }
           ],
-          "name": "poll-voting-Duha-dev-submitVote",
+          "name": "poll-voting-Duha-dev-votePoll",
           "package": {},
           "memory": 1024,
           "timeout": 6,
           "runtime": "nodejs20.x",
           "vpc": {},
-          "versionLogicalId": "SubmitVoteLambdaVersiondagVM8cxhW9UstoETvBQy2lXdMGPWWyxPbjhuUzk"
+          "versionLogicalId": "VotePollLambdaVersion0tSjJrcLPYfSSVnYUOYmTmGvO8cEzW0DKsPcOSvk"
         },
         "sendResults": {
           "handler": "sendResults.handler",
@@ -1137,7 +1311,7 @@
           "timeout": 6,
           "runtime": "nodejs20.x",
           "vpc": {},
-          "versionLogicalId": "SendResultsLambdaVersionv6F8UqI7ylPkvgm6bhHKFSUjHrqDppxzlskZsqY4"
+          "versionLogicalId": "SendResultsLambdaVersionNiJsT7DUmgOg3uj6ws2bNmXg7egpCPgIDlIR0HMs"
         }
       },
       "resources": {
@@ -1196,22 +1370,28 @@
         "AWSTemplateFormatVersion": "2010-09-09",
         "Description": "The AWS CloudFormation template for this Serverless application",
         "Resources": {
-          "CreatePollLogGroup": {
-            "Type": "AWS::Logs::LogGroup",
-            "Properties": {
-              "LogGroupName": "/aws/lambda/poll-voting-Duha-dev-createPoll"
-            }
-          },
           "GetPollLogGroup": {
             "Type": "AWS::Logs::LogGroup",
             "Properties": {
               "LogGroupName": "/aws/lambda/poll-voting-Duha-dev-getPoll"
             }
           },
-          "SubmitVoteLogGroup": {
+          "GetAllPollsLogGroup": {
             "Type": "AWS::Logs::LogGroup",
             "Properties": {
-              "LogGroupName": "/aws/lambda/poll-voting-Duha-dev-submitVote"
+              "LogGroupName": "/aws/lambda/poll-voting-Duha-dev-getAllPolls"
+            }
+          },
+          "CreatePollLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/poll-voting-Duha-dev-createPoll"
+            }
+          },
+          "VotePollLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/poll-voting-Duha-dev-votePoll"
             }
           },
           "SendResultsLogGroup": {
@@ -1309,41 +1489,12 @@
               }
             }
           },
-          "CreatePollLambdaFunction": {
-            "Type": "AWS::Lambda::Function",
-            "Properties": {
-              "Code": {
-                "S3Bucket": "serverless-framework-deployments-us-east-1-c18f6ef0-ed15",
-                "S3Key": "serverless/poll-voting-Duha/dev/1778509194302-2026-05-11T14:19:54.302Z/poll-voting-Duha.zip"
-              },
-              "Handler": "createPoll.handler",
-              "Runtime": "nodejs20.x",
-              "FunctionName": "poll-voting-Duha-dev-createPoll",
-              "MemorySize": 1024,
-              "Timeout": 6,
-              "Environment": {
-                "Variables": {
-                  "EMAIL_USER": "Duhaneesr@gmail.com",
-                  "EMAIL_PASS": "btpr jvdc xklt phfp"
-                }
-              },
-              "Role": {
-                "Fn::GetAtt": [
-                  "IamRoleLambdaExecution",
-                  "Arn"
-                ]
-              }
-            },
-            "DependsOn": [
-              "CreatePollLogGroup"
-            ]
-          },
           "GetPollLambdaFunction": {
             "Type": "AWS::Lambda::Function",
             "Properties": {
               "Code": {
                 "S3Bucket": "serverless-framework-deployments-us-east-1-c18f6ef0-ed15",
-                "S3Key": "serverless/poll-voting-Duha/dev/1778509194302-2026-05-11T14:19:54.302Z/poll-voting-Duha.zip"
+                "S3Key": "serverless/poll-voting-Duha/dev/1778559524333-2026-05-12T04:18:44.333Z/poll-voting-Duha.zip"
               },
               "Handler": "getPoll.handler",
               "Runtime": "nodejs20.x",
@@ -1367,16 +1518,16 @@
               "GetPollLogGroup"
             ]
           },
-          "SubmitVoteLambdaFunction": {
+          "GetAllPollsLambdaFunction": {
             "Type": "AWS::Lambda::Function",
             "Properties": {
               "Code": {
                 "S3Bucket": "serverless-framework-deployments-us-east-1-c18f6ef0-ed15",
-                "S3Key": "serverless/poll-voting-Duha/dev/1778509194302-2026-05-11T14:19:54.302Z/poll-voting-Duha.zip"
+                "S3Key": "serverless/poll-voting-Duha/dev/1778559524333-2026-05-12T04:18:44.333Z/poll-voting-Duha.zip"
               },
-              "Handler": "submitVote.handler",
+              "Handler": "getAllPolls.handler",
               "Runtime": "nodejs20.x",
-              "FunctionName": "poll-voting-Duha-dev-submitVote",
+              "FunctionName": "poll-voting-Duha-dev-getAllPolls",
               "MemorySize": 1024,
               "Timeout": 6,
               "Environment": {
@@ -1393,7 +1544,65 @@
               }
             },
             "DependsOn": [
-              "SubmitVoteLogGroup"
+              "GetAllPollsLogGroup"
+            ]
+          },
+          "CreatePollLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": "serverless-framework-deployments-us-east-1-c18f6ef0-ed15",
+                "S3Key": "serverless/poll-voting-Duha/dev/1778559524333-2026-05-12T04:18:44.333Z/poll-voting-Duha.zip"
+              },
+              "Handler": "createPoll.handler",
+              "Runtime": "nodejs20.x",
+              "FunctionName": "poll-voting-Duha-dev-createPoll",
+              "MemorySize": 1024,
+              "Timeout": 6,
+              "Environment": {
+                "Variables": {
+                  "EMAIL_USER": "Duhaneesr@gmail.com",
+                  "EMAIL_PASS": "btpr jvdc xklt phfp"
+                }
+              },
+              "Role": {
+                "Fn::GetAtt": [
+                  "IamRoleLambdaExecution",
+                  "Arn"
+                ]
+              }
+            },
+            "DependsOn": [
+              "CreatePollLogGroup"
+            ]
+          },
+          "VotePollLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": "serverless-framework-deployments-us-east-1-c18f6ef0-ed15",
+                "S3Key": "serverless/poll-voting-Duha/dev/1778559524333-2026-05-12T04:18:44.333Z/poll-voting-Duha.zip"
+              },
+              "Handler": "submitVote.handler",
+              "Runtime": "nodejs20.x",
+              "FunctionName": "poll-voting-Duha-dev-votePoll",
+              "MemorySize": 1024,
+              "Timeout": 6,
+              "Environment": {
+                "Variables": {
+                  "EMAIL_USER": "Duhaneesr@gmail.com",
+                  "EMAIL_PASS": "btpr jvdc xklt phfp"
+                }
+              },
+              "Role": {
+                "Fn::GetAtt": [
+                  "IamRoleLambdaExecution",
+                  "Arn"
+                ]
+              }
+            },
+            "DependsOn": [
+              "VotePollLogGroup"
             ]
           },
           "SendResultsLambdaFunction": {
@@ -1401,7 +1610,7 @@
             "Properties": {
               "Code": {
                 "S3Bucket": "serverless-framework-deployments-us-east-1-c18f6ef0-ed15",
-                "S3Key": "serverless/poll-voting-Duha/dev/1778509194302-2026-05-11T14:19:54.302Z/poll-voting-Duha.zip"
+                "S3Key": "serverless/poll-voting-Duha/dev/1778559524333-2026-05-12T04:18:44.333Z/poll-voting-Duha.zip"
               },
               "Handler": "sendResults.handler",
               "Runtime": "nodejs20.x",
@@ -1425,44 +1634,54 @@
               "SendResultsLogGroup"
             ]
           },
-          "CreatePollLambdaVersionWJozg51rFTRyo1v5SEI5Ea1a4fVY98gnKzzJs5rQIRk": {
-            "Type": "AWS::Lambda::Version",
-            "DeletionPolicy": "Retain",
-            "Properties": {
-              "FunctionName": {
-                "Ref": "CreatePollLambdaFunction"
-              },
-              "CodeSha256": "K7y9D0AM3z8Ezbn3FpTz8kkrA1IhzhRNcSC7SozdAQI="
-            }
-          },
-          "GetPollLambdaVersionfSDXS76ioQ6L8bzZCKzX2zEy186qcsSsNI35IOckk4": {
+          "GetPollLambdaVersiontICH0fprvZLNY4Kqg6YTdwhLsf9J1z73dOmuF8AuYN8": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "GetPollLambdaFunction"
               },
-              "CodeSha256": "K7y9D0AM3z8Ezbn3FpTz8kkrA1IhzhRNcSC7SozdAQI="
+              "CodeSha256": "vyKACwN1ra23a07TnibuyvhivbVMtXUTWfjasu+EgTE="
             }
           },
-          "SubmitVoteLambdaVersiondagVM8cxhW9UstoETvBQy2lXdMGPWWyxPbjhuUzk": {
+          "GetAllPollsLambdaVersionRmimWJvC1DQdo3vAiVGHlVEK4nQuxLRCHe1eoQSSU": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
-                "Ref": "SubmitVoteLambdaFunction"
+                "Ref": "GetAllPollsLambdaFunction"
               },
-              "CodeSha256": "K7y9D0AM3z8Ezbn3FpTz8kkrA1IhzhRNcSC7SozdAQI="
+              "CodeSha256": "vyKACwN1ra23a07TnibuyvhivbVMtXUTWfjasu+EgTE="
             }
           },
-          "SendResultsLambdaVersionv6F8UqI7ylPkvgm6bhHKFSUjHrqDppxzlskZsqY4": {
+          "CreatePollLambdaVersionWbw3Pe4EUXTY94uSlfrfh8uIuuqGo6BSpmvWX2PIA": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "CreatePollLambdaFunction"
+              },
+              "CodeSha256": "vyKACwN1ra23a07TnibuyvhivbVMtXUTWfjasu+EgTE="
+            }
+          },
+          "VotePollLambdaVersion0tSjJrcLPYfSSVnYUOYmTmGvO8cEzW0DKsPcOSvk": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "VotePollLambdaFunction"
+              },
+              "CodeSha256": "vyKACwN1ra23a07TnibuyvhivbVMtXUTWfjasu+EgTE="
+            }
+          },
+          "SendResultsLambdaVersionNiJsT7DUmgOg3uj6ws2bNmXg7egpCPgIDlIR0HMs": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "SendResultsLambdaFunction"
               },
-              "CodeSha256": "K7y9D0AM3z8Ezbn3FpTz8kkrA1IhzhRNcSC7SozdAQI="
+              "CodeSha256": "vyKACwN1ra23a07TnibuyvhivbVMtXUTWfjasu+EgTE="
             }
           },
           "ApiGatewayRestApi": {
@@ -1528,51 +1747,6 @@
               }
             }
           },
-          "ApiGatewayMethodPollsOptions": {
-            "Type": "AWS::ApiGateway::Method",
-            "Properties": {
-              "AuthorizationType": "NONE",
-              "HttpMethod": "OPTIONS",
-              "MethodResponses": [
-                {
-                  "StatusCode": "200",
-                  "ResponseParameters": {
-                    "method.response.header.Access-Control-Allow-Origin": true,
-                    "method.response.header.Access-Control-Allow-Headers": true,
-                    "method.response.header.Access-Control-Allow-Methods": true
-                  },
-                  "ResponseModels": {}
-                }
-              ],
-              "RequestParameters": {},
-              "Integration": {
-                "Type": "MOCK",
-                "RequestTemplates": {
-                  "application/json": "{statusCode:200}"
-                },
-                "ContentHandling": "CONVERT_TO_TEXT",
-                "IntegrationResponses": [
-                  {
-                    "StatusCode": "200",
-                    "ResponseParameters": {
-                      "method.response.header.Access-Control-Allow-Origin": "'*'",
-                      "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id'",
-                      "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST'"
-                    },
-                    "ResponseTemplates": {
-                      "application/json": ""
-                    }
-                  }
-                ]
-              },
-              "ResourceId": {
-                "Ref": "ApiGatewayResourcePolls"
-              },
-              "RestApiId": {
-                "Ref": "ApiGatewayRestApi"
-              }
-            }
-          },
           "ApiGatewayMethodPollsPollidVarOptions": {
             "Type": "AWS::ApiGateway::Method",
             "Properties": {
@@ -1612,6 +1786,51 @@
               },
               "ResourceId": {
                 "Ref": "ApiGatewayResourcePollsPollidVar"
+              },
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              }
+            }
+          },
+          "ApiGatewayMethodPollsOptions": {
+            "Type": "AWS::ApiGateway::Method",
+            "Properties": {
+              "AuthorizationType": "NONE",
+              "HttpMethod": "OPTIONS",
+              "MethodResponses": [
+                {
+                  "StatusCode": "200",
+                  "ResponseParameters": {
+                    "method.response.header.Access-Control-Allow-Origin": true,
+                    "method.response.header.Access-Control-Allow-Headers": true,
+                    "method.response.header.Access-Control-Allow-Methods": true
+                  },
+                  "ResponseModels": {}
+                }
+              ],
+              "RequestParameters": {},
+              "Integration": {
+                "Type": "MOCK",
+                "RequestTemplates": {
+                  "application/json": "{statusCode:200}"
+                },
+                "ContentHandling": "CONVERT_TO_TEXT",
+                "IntegrationResponses": [
+                  {
+                    "StatusCode": "200",
+                    "ResponseParameters": {
+                      "method.response.header.Access-Control-Allow-Origin": "'*'",
+                      "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id'",
+                      "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST,GET'"
+                    },
+                    "ResponseTemplates": {
+                      "application/json": ""
+                    }
+                  }
+                ]
+              },
+              "ResourceId": {
+                "Ref": "ApiGatewayResourcePolls"
               },
               "RestApiId": {
                 "Ref": "ApiGatewayRestApi"
@@ -1708,52 +1927,6 @@
               }
             }
           },
-          "ApiGatewayMethodPollsPost": {
-            "Type": "AWS::ApiGateway::Method",
-            "Properties": {
-              "HttpMethod": "POST",
-              "RequestParameters": {},
-              "ResourceId": {
-                "Ref": "ApiGatewayResourcePolls"
-              },
-              "RestApiId": {
-                "Ref": "ApiGatewayRestApi"
-              },
-              "ApiKeyRequired": "<REDACTED>",
-              "AuthorizationType": "NONE",
-              "Integration": {
-                "IntegrationHttpMethod": "POST",
-                "Type": "AWS_PROXY",
-                "Uri": {
-                  "Fn::Join": [
-                    "",
-                    [
-                      "arn:",
-                      {
-                        "Ref": "AWS::Partition"
-                      },
-                      ":apigateway:",
-                      {
-                        "Ref": "AWS::Region"
-                      },
-                      ":lambda:path/2015-03-31/functions/",
-                      {
-                        "Fn::GetAtt": [
-                          "CreatePollLambdaFunction",
-                          "Arn"
-                        ]
-                      },
-                      "/invocations"
-                    ]
-                  ]
-                }
-              },
-              "MethodResponses": []
-            },
-            "DependsOn": [
-              "CreatePollLambdaPermissionApiGateway"
-            ]
-          },
           "ApiGatewayMethodPollsPollidVarGet": {
             "Type": "AWS::ApiGateway::Method",
             "Properties": {
@@ -1800,6 +1973,98 @@
               "GetPollLambdaPermissionApiGateway"
             ]
           },
+          "ApiGatewayMethodPollsGet": {
+            "Type": "AWS::ApiGateway::Method",
+            "Properties": {
+              "HttpMethod": "GET",
+              "RequestParameters": {},
+              "ResourceId": {
+                "Ref": "ApiGatewayResourcePolls"
+              },
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "ApiKeyRequired": "<REDACTED>",
+              "AuthorizationType": "NONE",
+              "Integration": {
+                "IntegrationHttpMethod": "POST",
+                "Type": "AWS_PROXY",
+                "Uri": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":apigateway:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":lambda:path/2015-03-31/functions/",
+                      {
+                        "Fn::GetAtt": [
+                          "GetAllPollsLambdaFunction",
+                          "Arn"
+                        ]
+                      },
+                      "/invocations"
+                    ]
+                  ]
+                }
+              },
+              "MethodResponses": []
+            },
+            "DependsOn": [
+              "GetAllPollsLambdaPermissionApiGateway"
+            ]
+          },
+          "ApiGatewayMethodPollsPost": {
+            "Type": "AWS::ApiGateway::Method",
+            "Properties": {
+              "HttpMethod": "POST",
+              "RequestParameters": {},
+              "ResourceId": {
+                "Ref": "ApiGatewayResourcePolls"
+              },
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "ApiKeyRequired": "<REDACTED>",
+              "AuthorizationType": "NONE",
+              "Integration": {
+                "IntegrationHttpMethod": "POST",
+                "Type": "AWS_PROXY",
+                "Uri": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":apigateway:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":lambda:path/2015-03-31/functions/",
+                      {
+                        "Fn::GetAtt": [
+                          "CreatePollLambdaFunction",
+                          "Arn"
+                        ]
+                      },
+                      "/invocations"
+                    ]
+                  ]
+                }
+              },
+              "MethodResponses": []
+            },
+            "DependsOn": [
+              "CreatePollLambdaPermissionApiGateway"
+            ]
+          },
           "ApiGatewayMethodPollsPollidVarVotePost": {
             "Type": "AWS::ApiGateway::Method",
             "Properties": {
@@ -1831,7 +2096,7 @@
                       ":lambda:path/2015-03-31/functions/",
                       {
                         "Fn::GetAtt": [
-                          "SubmitVoteLambdaFunction",
+                          "VotePollLambdaFunction",
                           "Arn"
                         ]
                       },
@@ -1843,7 +2108,7 @@
               "MethodResponses": []
             },
             "DependsOn": [
-              "SubmitVoteLambdaPermissionApiGateway"
+              "VotePollLambdaPermissionApiGateway"
             ]
           },
           "ApiGatewayMethodPollsPollidVarSendPost": {
@@ -1892,7 +2157,7 @@
               "SendResultsLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1778509165514": {
+          "ApiGatewayDeployment1778559502926": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -1901,52 +2166,16 @@
               "StageName": "dev"
             },
             "DependsOn": [
-              "ApiGatewayMethodPollsOptions",
               "ApiGatewayMethodPollsPollidVarOptions",
+              "ApiGatewayMethodPollsOptions",
               "ApiGatewayMethodPollsPollidVarVoteOptions",
               "ApiGatewayMethodPollsPollidVarSendOptions",
-              "ApiGatewayMethodPollsPost",
               "ApiGatewayMethodPollsPollidVarGet",
+              "ApiGatewayMethodPollsGet",
+              "ApiGatewayMethodPollsPost",
               "ApiGatewayMethodPollsPollidVarVotePost",
               "ApiGatewayMethodPollsPollidVarSendPost"
             ]
-          },
-          "CreatePollLambdaPermissionApiGateway": {
-            "Type": "AWS::Lambda::Permission",
-            "Properties": {
-              "FunctionName": {
-                "Fn::GetAtt": [
-                  "CreatePollLambdaFunction",
-                  "Arn"
-                ]
-              },
-              "Action": "lambda:InvokeFunction",
-              "Principal": "apigateway.amazonaws.com",
-              "SourceArn": {
-                "Fn::Join": [
-                  "",
-                  [
-                    "arn:",
-                    {
-                      "Ref": "AWS::Partition"
-                    },
-                    ":execute-api:",
-                    {
-                      "Ref": "AWS::Region"
-                    },
-                    ":",
-                    {
-                      "Ref": "AWS::AccountId"
-                    },
-                    ":",
-                    {
-                      "Ref": "ApiGatewayRestApi"
-                    },
-                    "/*/*"
-                  ]
-                ]
-              }
-            }
           },
           "GetPollLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
@@ -1985,12 +2214,86 @@
               }
             }
           },
-          "SubmitVoteLambdaPermissionApiGateway": {
+          "GetAllPollsLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
                 "Fn::GetAtt": [
-                  "SubmitVoteLambdaFunction",
+                  "GetAllPollsLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "apigateway.amazonaws.com",
+              "SourceArn": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":execute-api:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "ApiGatewayRestApi"
+                    },
+                    "/*/*"
+                  ]
+                ]
+              }
+            }
+          },
+          "CreatePollLambdaPermissionApiGateway": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "CreatePollLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "apigateway.amazonaws.com",
+              "SourceArn": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":execute-api:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "ApiGatewayRestApi"
+                    },
+                    "/*/*"
+                  ]
+                ]
+              }
+            }
+          },
+          "VotePollLambdaPermissionApiGateway": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "VotePollLambdaFunction",
                   "Arn"
                 ]
               },
@@ -2086,37 +2389,46 @@
               "Name": "sls-poll-voting-Duha-dev-ServerlessDeploymentBucketName"
             }
           },
-          "CreatePollLambdaFunctionQualifiedArn": {
-            "Description": "Current Lambda function version",
-            "Value": {
-              "Ref": "CreatePollLambdaVersionWJozg51rFTRyo1v5SEI5Ea1a4fVY98gnKzzJs5rQIRk"
-            },
-            "Export": {
-              "Name": "sls-poll-voting-Duha-dev-CreatePollLambdaFunctionQualifiedArn"
-            }
-          },
           "GetPollLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "GetPollLambdaVersionfSDXS76ioQ6L8bzZCKzX2zEy186qcsSsNI35IOckk4"
+              "Ref": "GetPollLambdaVersiontICH0fprvZLNY4Kqg6YTdwhLsf9J1z73dOmuF8AuYN8"
             },
             "Export": {
               "Name": "sls-poll-voting-Duha-dev-GetPollLambdaFunctionQualifiedArn"
             }
           },
-          "SubmitVoteLambdaFunctionQualifiedArn": {
+          "GetAllPollsLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "SubmitVoteLambdaVersiondagVM8cxhW9UstoETvBQy2lXdMGPWWyxPbjhuUzk"
+              "Ref": "GetAllPollsLambdaVersionRmimWJvC1DQdo3vAiVGHlVEK4nQuxLRCHe1eoQSSU"
             },
             "Export": {
-              "Name": "sls-poll-voting-Duha-dev-SubmitVoteLambdaFunctionQualifiedArn"
+              "Name": "sls-poll-voting-Duha-dev-GetAllPollsLambdaFunctionQualifiedArn"
+            }
+          },
+          "CreatePollLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "CreatePollLambdaVersionWbw3Pe4EUXTY94uSlfrfh8uIuuqGo6BSpmvWX2PIA"
+            },
+            "Export": {
+              "Name": "sls-poll-voting-Duha-dev-CreatePollLambdaFunctionQualifiedArn"
+            }
+          },
+          "VotePollLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "VotePollLambdaVersion0tSjJrcLPYfSSVnYUOYmTmGvO8cEzW0DKsPcOSvk"
+            },
+            "Export": {
+              "Name": "sls-poll-voting-Duha-dev-VotePollLambdaFunctionQualifiedArn"
             }
           },
           "SendResultsLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "SendResultsLambdaVersionv6F8UqI7ylPkvgm6bhHKFSUjHrqDppxzlskZsqY4"
+              "Ref": "SendResultsLambdaVersionNiJsT7DUmgOg3uj6ws2bNmXg7egpCPgIDlIR0HMs"
             },
             "Export": {
               "Name": "sls-poll-voting-Duha-dev-SendResultsLambdaFunctionQualifiedArn"
@@ -2161,7 +2473,7 @@
       "serviceProvider": null,
       "instanceParameters": null
     },
-    "serviceRawFile": "# \"org\" ensures this Service is used with the correct Serverless Framework Access Key.\r\norg: duhaaa\r\nservice: poll-voting-Duha\r\nuseDotenv: true\r\nprovider:\r\n  name: aws\r\n  runtime: nodejs20.x\r\n  region: us-east-1\r\n  environment:\r\n    EMAIL_USER: ${env:EMAIL_USER}\r\n    EMAIL_PASS: ${env:EMAIL_PASS}\r\n\r\n\r\n  iam:\r\n    role:\r\n      statements:\r\n        - Effect: Allow\r\n          Action:\r\n            - dynamodb:PutItem\r\n            - dynamodb:GetItem\r\n            - dynamodb:UpdateItem\r\n            - dynamodb:Query\r\n            - dynamodb:Scan\r\n          Resource: \"arn:aws:dynamodb:us-east-1:*:table/PollsTable_Duha\"\r\nfunctions:\r\n  createPoll:\r\n    handler: createPoll.handler\r\n    events:\r\n      - http:\r\n          path: /polls\r\n          method: post\r\n          cors: true\r\n\r\n  getPoll:\r\n    handler: getPoll.handler\r\n    events:\r\n      - http:\r\n          path: /polls/{pollId}\r\n          method: get\r\n          cors: true\r\n\r\n  submitVote:\r\n    handler: submitVote.handler\r\n    events:\r\n      - http:\r\n          path: /polls/{pollId}/vote\r\n          method: post\r\n          cors: true\r\n\r\n  sendResults:\r\n    handler: sendResults.handler\r\n    events:\r\n      - http:\r\n          path: /polls/{pollId}/send\r\n          method: post\r\n          cors: true\r\n\r\nresources:\r\n  Resources:\r\n    PollsTable:\r\n      Type: AWS::DynamoDB::Table\r\n      Properties:\r\n        TableName: PollsTable_Duha\r\n        BillingMode: PAY_PER_REQUEST\r\n        AttributeDefinitions:\r\n          - AttributeName: pollId\r\n            AttributeType: S\r\n        KeySchema:\r\n          - AttributeName: pollId\r\n            KeyType: HASH",
+    "serviceRawFile": "# \"org\" ensures this Service is used with the correct Serverless Framework Access Key.\r\norg: duhaaa\r\nservice: poll-voting-Duha\r\nuseDotenv: true\r\nprovider:\r\n  name: aws\r\n  runtime: nodejs20.x\r\n  region: us-east-1\r\n  environment:\r\n    EMAIL_USER: ${env:EMAIL_USER}\r\n    EMAIL_PASS: ${env:EMAIL_PASS}\r\n\r\n  iam:\r\n    role:\r\n      statements:\r\n        - Effect: Allow\r\n          Action:\r\n            - dynamodb:PutItem\r\n            - dynamodb:GetItem\r\n            - dynamodb:UpdateItem\r\n            - dynamodb:Query\r\n            - dynamodb:Scan\r\n          Resource: \"arn:aws:dynamodb:us-east-1:*:table/PollsTable_Duha\"\r\n\r\nfunctions:\r\n  getPoll:\r\n    handler: getPoll.handler\r\n    events:\r\n      - http:\r\n          path: /polls/{pollId}\r\n          method: get\r\n          cors: true\r\n          \r\n  getAllPolls:\r\n    handler: getAllPolls.handler\r\n    events:\r\n      - http:\r\n          path: /polls\r\n          method: get\r\n          cors: true\r\n\r\n  createPoll:\r\n    handler: createPoll.handler\r\n    events:\r\n      - http:\r\n          path: /polls\r\n          method: post\r\n          cors: true\r\n\r\n  votePoll:\r\n    handler: submitVote.handler\r\n    events:\r\n      - http:\r\n          path: /polls/{pollId}/vote\r\n          method: post\r\n          cors: true\r\n\r\n  sendResults:\r\n    handler: sendResults.handler\r\n    events:\r\n      - http:\r\n          path: /polls/{pollId}/send\r\n          method: post\r\n          cors: true\r\n\r\nresources:\r\n  Resources:\r\n    PollsTable:\r\n      Type: AWS::DynamoDB::Table\r\n      Properties:\r\n        TableName: PollsTable_Duha\r\n        BillingMode: PAY_PER_REQUEST\r\n        AttributeDefinitions:\r\n          - AttributeName: pollId\r\n            AttributeType: S\r\n        KeySchema:\r\n          - AttributeName: pollId\r\n            KeyType: HASH",
     "command": [
       "deploy"
     ],
@@ -2174,30 +2486,30 @@
     "serviceProviderAwsCfStackName": "poll-voting-Duha-dev",
     "serviceProviderAwsCfStackId": "arn:aws:cloudformation:us-east-1:659728758683:stack/poll-voting-Duha-dev/1aa3b0e0-4d25-11f1-8d62-1216bdf8392f",
     "serviceProviderAwsCfStackCreated": "2026-05-11T10:35:18.247Z",
-    "serviceProviderAwsCfStackUpdated": "2026-05-11T14:17:03.886Z",
+    "serviceProviderAwsCfStackUpdated": "2026-05-11T18:25:35.471Z",
     "serviceProviderAwsCfStackStatus": "UPDATE_COMPLETE",
     "serviceProviderAwsCfStackOutputs": [
       {
+        "OutputKey": "VotePollLambdaFunctionQualifiedArn",
+        "OutputValue": "arn:aws:lambda:us-east-1:659728758683:function:poll-voting-Duha-dev-votePoll:1",
+        "Description": "Current Lambda function version",
+        "ExportName": "sls-poll-voting-Duha-dev-VotePollLambdaFunctionQualifiedArn"
+      },
+      {
         "OutputKey": "CreatePollLambdaFunctionQualifiedArn",
-        "OutputValue": "arn:aws:lambda:us-east-1:659728758683:function:poll-voting-Duha-dev-createPoll:13",
+        "OutputValue": "arn:aws:lambda:us-east-1:659728758683:function:poll-voting-Duha-dev-createPoll:15",
         "Description": "Current Lambda function version",
         "ExportName": "sls-poll-voting-Duha-dev-CreatePollLambdaFunctionQualifiedArn"
       },
       {
-        "OutputKey": "SubmitVoteLambdaFunctionQualifiedArn",
-        "OutputValue": "arn:aws:lambda:us-east-1:659728758683:function:poll-voting-Duha-dev-submitVote:13",
-        "Description": "Current Lambda function version",
-        "ExportName": "sls-poll-voting-Duha-dev-SubmitVoteLambdaFunctionQualifiedArn"
-      },
-      {
         "OutputKey": "GetPollLambdaFunctionQualifiedArn",
-        "OutputValue": "arn:aws:lambda:us-east-1:659728758683:function:poll-voting-Duha-dev-getPoll:13",
+        "OutputValue": "arn:aws:lambda:us-east-1:659728758683:function:poll-voting-Duha-dev-getPoll:15",
         "Description": "Current Lambda function version",
         "ExportName": "sls-poll-voting-Duha-dev-GetPollLambdaFunctionQualifiedArn"
       },
       {
         "OutputKey": "SendResultsLambdaFunctionQualifiedArn",
-        "OutputValue": "arn:aws:lambda:us-east-1:659728758683:function:poll-voting-Duha-dev-sendResults:13",
+        "OutputValue": "arn:aws:lambda:us-east-1:659728758683:function:poll-voting-Duha-dev-sendResults:15",
         "Description": "Current Lambda function version",
         "ExportName": "sls-poll-voting-Duha-dev-SendResultsLambdaFunctionQualifiedArn"
       },
@@ -2217,22 +2529,28 @@
       "AWSTemplateFormatVersion": "2010-09-09",
       "Description": "The AWS CloudFormation template for this Serverless application",
       "Resources": {
-        "CreatePollLogGroup": {
-          "Type": "AWS::Logs::LogGroup",
-          "Properties": {
-            "LogGroupName": "/aws/lambda/poll-voting-Duha-dev-createPoll"
-          }
-        },
         "GetPollLogGroup": {
           "Type": "AWS::Logs::LogGroup",
           "Properties": {
             "LogGroupName": "/aws/lambda/poll-voting-Duha-dev-getPoll"
           }
         },
-        "SubmitVoteLogGroup": {
+        "GetAllPollsLogGroup": {
           "Type": "AWS::Logs::LogGroup",
           "Properties": {
-            "LogGroupName": "/aws/lambda/poll-voting-Duha-dev-submitVote"
+            "LogGroupName": "/aws/lambda/poll-voting-Duha-dev-getAllPolls"
+          }
+        },
+        "CreatePollLogGroup": {
+          "Type": "AWS::Logs::LogGroup",
+          "Properties": {
+            "LogGroupName": "/aws/lambda/poll-voting-Duha-dev-createPoll"
+          }
+        },
+        "VotePollLogGroup": {
+          "Type": "AWS::Logs::LogGroup",
+          "Properties": {
+            "LogGroupName": "/aws/lambda/poll-voting-Duha-dev-votePoll"
           }
         },
         "SendResultsLogGroup": {
@@ -2330,41 +2648,12 @@
             }
           }
         },
-        "CreatePollLambdaFunction": {
-          "Type": "AWS::Lambda::Function",
-          "Properties": {
-            "Code": {
-              "S3Bucket": "serverless-framework-deployments-us-east-1-c18f6ef0-ed15",
-              "S3Key": "serverless/poll-voting-Duha/dev/1778509194302-2026-05-11T14:19:54.302Z/poll-voting-Duha.zip"
-            },
-            "Handler": "createPoll.handler",
-            "Runtime": "nodejs20.x",
-            "FunctionName": "poll-voting-Duha-dev-createPoll",
-            "MemorySize": 1024,
-            "Timeout": 6,
-            "Environment": {
-              "Variables": {
-                "EMAIL_USER": "Duhaneesr@gmail.com",
-                "EMAIL_PASS": "btpr jvdc xklt phfp"
-              }
-            },
-            "Role": {
-              "Fn::GetAtt": [
-                "IamRoleLambdaExecution",
-                "Arn"
-              ]
-            }
-          },
-          "DependsOn": [
-            "CreatePollLogGroup"
-          ]
-        },
         "GetPollLambdaFunction": {
           "Type": "AWS::Lambda::Function",
           "Properties": {
             "Code": {
               "S3Bucket": "serverless-framework-deployments-us-east-1-c18f6ef0-ed15",
-              "S3Key": "serverless/poll-voting-Duha/dev/1778509194302-2026-05-11T14:19:54.302Z/poll-voting-Duha.zip"
+              "S3Key": "serverless/poll-voting-Duha/dev/1778559524333-2026-05-12T04:18:44.333Z/poll-voting-Duha.zip"
             },
             "Handler": "getPoll.handler",
             "Runtime": "nodejs20.x",
@@ -2388,16 +2677,16 @@
             "GetPollLogGroup"
           ]
         },
-        "SubmitVoteLambdaFunction": {
+        "GetAllPollsLambdaFunction": {
           "Type": "AWS::Lambda::Function",
           "Properties": {
             "Code": {
               "S3Bucket": "serverless-framework-deployments-us-east-1-c18f6ef0-ed15",
-              "S3Key": "serverless/poll-voting-Duha/dev/1778509194302-2026-05-11T14:19:54.302Z/poll-voting-Duha.zip"
+              "S3Key": "serverless/poll-voting-Duha/dev/1778559524333-2026-05-12T04:18:44.333Z/poll-voting-Duha.zip"
             },
-            "Handler": "submitVote.handler",
+            "Handler": "getAllPolls.handler",
             "Runtime": "nodejs20.x",
-            "FunctionName": "poll-voting-Duha-dev-submitVote",
+            "FunctionName": "poll-voting-Duha-dev-getAllPolls",
             "MemorySize": 1024,
             "Timeout": 6,
             "Environment": {
@@ -2414,7 +2703,65 @@
             }
           },
           "DependsOn": [
-            "SubmitVoteLogGroup"
+            "GetAllPollsLogGroup"
+          ]
+        },
+        "CreatePollLambdaFunction": {
+          "Type": "AWS::Lambda::Function",
+          "Properties": {
+            "Code": {
+              "S3Bucket": "serverless-framework-deployments-us-east-1-c18f6ef0-ed15",
+              "S3Key": "serverless/poll-voting-Duha/dev/1778559524333-2026-05-12T04:18:44.333Z/poll-voting-Duha.zip"
+            },
+            "Handler": "createPoll.handler",
+            "Runtime": "nodejs20.x",
+            "FunctionName": "poll-voting-Duha-dev-createPoll",
+            "MemorySize": 1024,
+            "Timeout": 6,
+            "Environment": {
+              "Variables": {
+                "EMAIL_USER": "Duhaneesr@gmail.com",
+                "EMAIL_PASS": "btpr jvdc xklt phfp"
+              }
+            },
+            "Role": {
+              "Fn::GetAtt": [
+                "IamRoleLambdaExecution",
+                "Arn"
+              ]
+            }
+          },
+          "DependsOn": [
+            "CreatePollLogGroup"
+          ]
+        },
+        "VotePollLambdaFunction": {
+          "Type": "AWS::Lambda::Function",
+          "Properties": {
+            "Code": {
+              "S3Bucket": "serverless-framework-deployments-us-east-1-c18f6ef0-ed15",
+              "S3Key": "serverless/poll-voting-Duha/dev/1778559524333-2026-05-12T04:18:44.333Z/poll-voting-Duha.zip"
+            },
+            "Handler": "submitVote.handler",
+            "Runtime": "nodejs20.x",
+            "FunctionName": "poll-voting-Duha-dev-votePoll",
+            "MemorySize": 1024,
+            "Timeout": 6,
+            "Environment": {
+              "Variables": {
+                "EMAIL_USER": "Duhaneesr@gmail.com",
+                "EMAIL_PASS": "btpr jvdc xklt phfp"
+              }
+            },
+            "Role": {
+              "Fn::GetAtt": [
+                "IamRoleLambdaExecution",
+                "Arn"
+              ]
+            }
+          },
+          "DependsOn": [
+            "VotePollLogGroup"
           ]
         },
         "SendResultsLambdaFunction": {
@@ -2422,7 +2769,7 @@
           "Properties": {
             "Code": {
               "S3Bucket": "serverless-framework-deployments-us-east-1-c18f6ef0-ed15",
-              "S3Key": "serverless/poll-voting-Duha/dev/1778509194302-2026-05-11T14:19:54.302Z/poll-voting-Duha.zip"
+              "S3Key": "serverless/poll-voting-Duha/dev/1778559524333-2026-05-12T04:18:44.333Z/poll-voting-Duha.zip"
             },
             "Handler": "sendResults.handler",
             "Runtime": "nodejs20.x",
@@ -2446,44 +2793,54 @@
             "SendResultsLogGroup"
           ]
         },
-        "CreatePollLambdaVersionWJozg51rFTRyo1v5SEI5Ea1a4fVY98gnKzzJs5rQIRk": {
-          "Type": "AWS::Lambda::Version",
-          "DeletionPolicy": "Retain",
-          "Properties": {
-            "FunctionName": {
-              "Ref": "CreatePollLambdaFunction"
-            },
-            "CodeSha256": "K7y9D0AM3z8Ezbn3FpTz8kkrA1IhzhRNcSC7SozdAQI="
-          }
-        },
-        "GetPollLambdaVersionfSDXS76ioQ6L8bzZCKzX2zEy186qcsSsNI35IOckk4": {
+        "GetPollLambdaVersiontICH0fprvZLNY4Kqg6YTdwhLsf9J1z73dOmuF8AuYN8": {
           "Type": "AWS::Lambda::Version",
           "DeletionPolicy": "Retain",
           "Properties": {
             "FunctionName": {
               "Ref": "GetPollLambdaFunction"
             },
-            "CodeSha256": "K7y9D0AM3z8Ezbn3FpTz8kkrA1IhzhRNcSC7SozdAQI="
+            "CodeSha256": "vyKACwN1ra23a07TnibuyvhivbVMtXUTWfjasu+EgTE="
           }
         },
-        "SubmitVoteLambdaVersiondagVM8cxhW9UstoETvBQy2lXdMGPWWyxPbjhuUzk": {
+        "GetAllPollsLambdaVersionRmimWJvC1DQdo3vAiVGHlVEK4nQuxLRCHe1eoQSSU": {
           "Type": "AWS::Lambda::Version",
           "DeletionPolicy": "Retain",
           "Properties": {
             "FunctionName": {
-              "Ref": "SubmitVoteLambdaFunction"
+              "Ref": "GetAllPollsLambdaFunction"
             },
-            "CodeSha256": "K7y9D0AM3z8Ezbn3FpTz8kkrA1IhzhRNcSC7SozdAQI="
+            "CodeSha256": "vyKACwN1ra23a07TnibuyvhivbVMtXUTWfjasu+EgTE="
           }
         },
-        "SendResultsLambdaVersionv6F8UqI7ylPkvgm6bhHKFSUjHrqDppxzlskZsqY4": {
+        "CreatePollLambdaVersionWbw3Pe4EUXTY94uSlfrfh8uIuuqGo6BSpmvWX2PIA": {
+          "Type": "AWS::Lambda::Version",
+          "DeletionPolicy": "Retain",
+          "Properties": {
+            "FunctionName": {
+              "Ref": "CreatePollLambdaFunction"
+            },
+            "CodeSha256": "vyKACwN1ra23a07TnibuyvhivbVMtXUTWfjasu+EgTE="
+          }
+        },
+        "VotePollLambdaVersion0tSjJrcLPYfSSVnYUOYmTmGvO8cEzW0DKsPcOSvk": {
+          "Type": "AWS::Lambda::Version",
+          "DeletionPolicy": "Retain",
+          "Properties": {
+            "FunctionName": {
+              "Ref": "VotePollLambdaFunction"
+            },
+            "CodeSha256": "vyKACwN1ra23a07TnibuyvhivbVMtXUTWfjasu+EgTE="
+          }
+        },
+        "SendResultsLambdaVersionNiJsT7DUmgOg3uj6ws2bNmXg7egpCPgIDlIR0HMs": {
           "Type": "AWS::Lambda::Version",
           "DeletionPolicy": "Retain",
           "Properties": {
             "FunctionName": {
               "Ref": "SendResultsLambdaFunction"
             },
-            "CodeSha256": "K7y9D0AM3z8Ezbn3FpTz8kkrA1IhzhRNcSC7SozdAQI="
+            "CodeSha256": "vyKACwN1ra23a07TnibuyvhivbVMtXUTWfjasu+EgTE="
           }
         },
         "ApiGatewayRestApi": {
@@ -2549,51 +2906,6 @@
             }
           }
         },
-        "ApiGatewayMethodPollsOptions": {
-          "Type": "AWS::ApiGateway::Method",
-          "Properties": {
-            "AuthorizationType": "NONE",
-            "HttpMethod": "OPTIONS",
-            "MethodResponses": [
-              {
-                "StatusCode": "200",
-                "ResponseParameters": {
-                  "method.response.header.Access-Control-Allow-Origin": true,
-                  "method.response.header.Access-Control-Allow-Headers": true,
-                  "method.response.header.Access-Control-Allow-Methods": true
-                },
-                "ResponseModels": {}
-              }
-            ],
-            "RequestParameters": {},
-            "Integration": {
-              "Type": "MOCK",
-              "RequestTemplates": {
-                "application/json": "{statusCode:200}"
-              },
-              "ContentHandling": "CONVERT_TO_TEXT",
-              "IntegrationResponses": [
-                {
-                  "StatusCode": "200",
-                  "ResponseParameters": {
-                    "method.response.header.Access-Control-Allow-Origin": "'*'",
-                    "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id'",
-                    "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST'"
-                  },
-                  "ResponseTemplates": {
-                    "application/json": ""
-                  }
-                }
-              ]
-            },
-            "ResourceId": {
-              "Ref": "ApiGatewayResourcePolls"
-            },
-            "RestApiId": {
-              "Ref": "ApiGatewayRestApi"
-            }
-          }
-        },
         "ApiGatewayMethodPollsPollidVarOptions": {
           "Type": "AWS::ApiGateway::Method",
           "Properties": {
@@ -2633,6 +2945,51 @@
             },
             "ResourceId": {
               "Ref": "ApiGatewayResourcePollsPollidVar"
+            },
+            "RestApiId": {
+              "Ref": "ApiGatewayRestApi"
+            }
+          }
+        },
+        "ApiGatewayMethodPollsOptions": {
+          "Type": "AWS::ApiGateway::Method",
+          "Properties": {
+            "AuthorizationType": "NONE",
+            "HttpMethod": "OPTIONS",
+            "MethodResponses": [
+              {
+                "StatusCode": "200",
+                "ResponseParameters": {
+                  "method.response.header.Access-Control-Allow-Origin": true,
+                  "method.response.header.Access-Control-Allow-Headers": true,
+                  "method.response.header.Access-Control-Allow-Methods": true
+                },
+                "ResponseModels": {}
+              }
+            ],
+            "RequestParameters": {},
+            "Integration": {
+              "Type": "MOCK",
+              "RequestTemplates": {
+                "application/json": "{statusCode:200}"
+              },
+              "ContentHandling": "CONVERT_TO_TEXT",
+              "IntegrationResponses": [
+                {
+                  "StatusCode": "200",
+                  "ResponseParameters": {
+                    "method.response.header.Access-Control-Allow-Origin": "'*'",
+                    "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id'",
+                    "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST,GET'"
+                  },
+                  "ResponseTemplates": {
+                    "application/json": ""
+                  }
+                }
+              ]
+            },
+            "ResourceId": {
+              "Ref": "ApiGatewayResourcePolls"
             },
             "RestApiId": {
               "Ref": "ApiGatewayRestApi"
@@ -2729,52 +3086,6 @@
             }
           }
         },
-        "ApiGatewayMethodPollsPost": {
-          "Type": "AWS::ApiGateway::Method",
-          "Properties": {
-            "HttpMethod": "POST",
-            "RequestParameters": {},
-            "ResourceId": {
-              "Ref": "ApiGatewayResourcePolls"
-            },
-            "RestApiId": {
-              "Ref": "ApiGatewayRestApi"
-            },
-            "ApiKeyRequired": "<REDACTED>",
-            "AuthorizationType": "NONE",
-            "Integration": {
-              "IntegrationHttpMethod": "POST",
-              "Type": "AWS_PROXY",
-              "Uri": {
-                "Fn::Join": [
-                  "",
-                  [
-                    "arn:",
-                    {
-                      "Ref": "AWS::Partition"
-                    },
-                    ":apigateway:",
-                    {
-                      "Ref": "AWS::Region"
-                    },
-                    ":lambda:path/2015-03-31/functions/",
-                    {
-                      "Fn::GetAtt": [
-                        "CreatePollLambdaFunction",
-                        "Arn"
-                      ]
-                    },
-                    "/invocations"
-                  ]
-                ]
-              }
-            },
-            "MethodResponses": []
-          },
-          "DependsOn": [
-            "CreatePollLambdaPermissionApiGateway"
-          ]
-        },
         "ApiGatewayMethodPollsPollidVarGet": {
           "Type": "AWS::ApiGateway::Method",
           "Properties": {
@@ -2821,6 +3132,98 @@
             "GetPollLambdaPermissionApiGateway"
           ]
         },
+        "ApiGatewayMethodPollsGet": {
+          "Type": "AWS::ApiGateway::Method",
+          "Properties": {
+            "HttpMethod": "GET",
+            "RequestParameters": {},
+            "ResourceId": {
+              "Ref": "ApiGatewayResourcePolls"
+            },
+            "RestApiId": {
+              "Ref": "ApiGatewayRestApi"
+            },
+            "ApiKeyRequired": "<REDACTED>",
+            "AuthorizationType": "NONE",
+            "Integration": {
+              "IntegrationHttpMethod": "POST",
+              "Type": "AWS_PROXY",
+              "Uri": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":apigateway:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":lambda:path/2015-03-31/functions/",
+                    {
+                      "Fn::GetAtt": [
+                        "GetAllPollsLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "/invocations"
+                  ]
+                ]
+              }
+            },
+            "MethodResponses": []
+          },
+          "DependsOn": [
+            "GetAllPollsLambdaPermissionApiGateway"
+          ]
+        },
+        "ApiGatewayMethodPollsPost": {
+          "Type": "AWS::ApiGateway::Method",
+          "Properties": {
+            "HttpMethod": "POST",
+            "RequestParameters": {},
+            "ResourceId": {
+              "Ref": "ApiGatewayResourcePolls"
+            },
+            "RestApiId": {
+              "Ref": "ApiGatewayRestApi"
+            },
+            "ApiKeyRequired": "<REDACTED>",
+            "AuthorizationType": "NONE",
+            "Integration": {
+              "IntegrationHttpMethod": "POST",
+              "Type": "AWS_PROXY",
+              "Uri": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":apigateway:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":lambda:path/2015-03-31/functions/",
+                    {
+                      "Fn::GetAtt": [
+                        "CreatePollLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "/invocations"
+                  ]
+                ]
+              }
+            },
+            "MethodResponses": []
+          },
+          "DependsOn": [
+            "CreatePollLambdaPermissionApiGateway"
+          ]
+        },
         "ApiGatewayMethodPollsPollidVarVotePost": {
           "Type": "AWS::ApiGateway::Method",
           "Properties": {
@@ -2852,7 +3255,7 @@
                     ":lambda:path/2015-03-31/functions/",
                     {
                       "Fn::GetAtt": [
-                        "SubmitVoteLambdaFunction",
+                        "VotePollLambdaFunction",
                         "Arn"
                       ]
                     },
@@ -2864,7 +3267,7 @@
             "MethodResponses": []
           },
           "DependsOn": [
-            "SubmitVoteLambdaPermissionApiGateway"
+            "VotePollLambdaPermissionApiGateway"
           ]
         },
         "ApiGatewayMethodPollsPollidVarSendPost": {
@@ -2913,7 +3316,7 @@
             "SendResultsLambdaPermissionApiGateway"
           ]
         },
-        "ApiGatewayDeployment1778509165514": {
+        "ApiGatewayDeployment1778559502926": {
           "Type": "AWS::ApiGateway::Deployment",
           "Properties": {
             "RestApiId": {
@@ -2922,52 +3325,16 @@
             "StageName": "dev"
           },
           "DependsOn": [
-            "ApiGatewayMethodPollsOptions",
             "ApiGatewayMethodPollsPollidVarOptions",
+            "ApiGatewayMethodPollsOptions",
             "ApiGatewayMethodPollsPollidVarVoteOptions",
             "ApiGatewayMethodPollsPollidVarSendOptions",
-            "ApiGatewayMethodPollsPost",
             "ApiGatewayMethodPollsPollidVarGet",
+            "ApiGatewayMethodPollsGet",
+            "ApiGatewayMethodPollsPost",
             "ApiGatewayMethodPollsPollidVarVotePost",
             "ApiGatewayMethodPollsPollidVarSendPost"
           ]
-        },
-        "CreatePollLambdaPermissionApiGateway": {
-          "Type": "AWS::Lambda::Permission",
-          "Properties": {
-            "FunctionName": {
-              "Fn::GetAtt": [
-                "CreatePollLambdaFunction",
-                "Arn"
-              ]
-            },
-            "Action": "lambda:InvokeFunction",
-            "Principal": "apigateway.amazonaws.com",
-            "SourceArn": {
-              "Fn::Join": [
-                "",
-                [
-                  "arn:",
-                  {
-                    "Ref": "AWS::Partition"
-                  },
-                  ":execute-api:",
-                  {
-                    "Ref": "AWS::Region"
-                  },
-                  ":",
-                  {
-                    "Ref": "AWS::AccountId"
-                  },
-                  ":",
-                  {
-                    "Ref": "ApiGatewayRestApi"
-                  },
-                  "/*/*"
-                ]
-              ]
-            }
-          }
         },
         "GetPollLambdaPermissionApiGateway": {
           "Type": "AWS::Lambda::Permission",
@@ -3006,12 +3373,86 @@
             }
           }
         },
-        "SubmitVoteLambdaPermissionApiGateway": {
+        "GetAllPollsLambdaPermissionApiGateway": {
           "Type": "AWS::Lambda::Permission",
           "Properties": {
             "FunctionName": {
               "Fn::GetAtt": [
-                "SubmitVoteLambdaFunction",
+                "GetAllPollsLambdaFunction",
+                "Arn"
+              ]
+            },
+            "Action": "lambda:InvokeFunction",
+            "Principal": "apigateway.amazonaws.com",
+            "SourceArn": {
+              "Fn::Join": [
+                "",
+                [
+                  "arn:",
+                  {
+                    "Ref": "AWS::Partition"
+                  },
+                  ":execute-api:",
+                  {
+                    "Ref": "AWS::Region"
+                  },
+                  ":",
+                  {
+                    "Ref": "AWS::AccountId"
+                  },
+                  ":",
+                  {
+                    "Ref": "ApiGatewayRestApi"
+                  },
+                  "/*/*"
+                ]
+              ]
+            }
+          }
+        },
+        "CreatePollLambdaPermissionApiGateway": {
+          "Type": "AWS::Lambda::Permission",
+          "Properties": {
+            "FunctionName": {
+              "Fn::GetAtt": [
+                "CreatePollLambdaFunction",
+                "Arn"
+              ]
+            },
+            "Action": "lambda:InvokeFunction",
+            "Principal": "apigateway.amazonaws.com",
+            "SourceArn": {
+              "Fn::Join": [
+                "",
+                [
+                  "arn:",
+                  {
+                    "Ref": "AWS::Partition"
+                  },
+                  ":execute-api:",
+                  {
+                    "Ref": "AWS::Region"
+                  },
+                  ":",
+                  {
+                    "Ref": "AWS::AccountId"
+                  },
+                  ":",
+                  {
+                    "Ref": "ApiGatewayRestApi"
+                  },
+                  "/*/*"
+                ]
+              ]
+            }
+          }
+        },
+        "VotePollLambdaPermissionApiGateway": {
+          "Type": "AWS::Lambda::Permission",
+          "Properties": {
+            "FunctionName": {
+              "Fn::GetAtt": [
+                "VotePollLambdaFunction",
                 "Arn"
               ]
             },
@@ -3107,37 +3548,46 @@
             "Name": "sls-poll-voting-Duha-dev-ServerlessDeploymentBucketName"
           }
         },
-        "CreatePollLambdaFunctionQualifiedArn": {
-          "Description": "Current Lambda function version",
-          "Value": {
-            "Ref": "CreatePollLambdaVersionWJozg51rFTRyo1v5SEI5Ea1a4fVY98gnKzzJs5rQIRk"
-          },
-          "Export": {
-            "Name": "sls-poll-voting-Duha-dev-CreatePollLambdaFunctionQualifiedArn"
-          }
-        },
         "GetPollLambdaFunctionQualifiedArn": {
           "Description": "Current Lambda function version",
           "Value": {
-            "Ref": "GetPollLambdaVersionfSDXS76ioQ6L8bzZCKzX2zEy186qcsSsNI35IOckk4"
+            "Ref": "GetPollLambdaVersiontICH0fprvZLNY4Kqg6YTdwhLsf9J1z73dOmuF8AuYN8"
           },
           "Export": {
             "Name": "sls-poll-voting-Duha-dev-GetPollLambdaFunctionQualifiedArn"
           }
         },
-        "SubmitVoteLambdaFunctionQualifiedArn": {
+        "GetAllPollsLambdaFunctionQualifiedArn": {
           "Description": "Current Lambda function version",
           "Value": {
-            "Ref": "SubmitVoteLambdaVersiondagVM8cxhW9UstoETvBQy2lXdMGPWWyxPbjhuUzk"
+            "Ref": "GetAllPollsLambdaVersionRmimWJvC1DQdo3vAiVGHlVEK4nQuxLRCHe1eoQSSU"
           },
           "Export": {
-            "Name": "sls-poll-voting-Duha-dev-SubmitVoteLambdaFunctionQualifiedArn"
+            "Name": "sls-poll-voting-Duha-dev-GetAllPollsLambdaFunctionQualifiedArn"
+          }
+        },
+        "CreatePollLambdaFunctionQualifiedArn": {
+          "Description": "Current Lambda function version",
+          "Value": {
+            "Ref": "CreatePollLambdaVersionWbw3Pe4EUXTY94uSlfrfh8uIuuqGo6BSpmvWX2PIA"
+          },
+          "Export": {
+            "Name": "sls-poll-voting-Duha-dev-CreatePollLambdaFunctionQualifiedArn"
+          }
+        },
+        "VotePollLambdaFunctionQualifiedArn": {
+          "Description": "Current Lambda function version",
+          "Value": {
+            "Ref": "VotePollLambdaVersion0tSjJrcLPYfSSVnYUOYmTmGvO8cEzW0DKsPcOSvk"
+          },
+          "Export": {
+            "Name": "sls-poll-voting-Duha-dev-VotePollLambdaFunctionQualifiedArn"
           }
         },
         "SendResultsLambdaFunctionQualifiedArn": {
           "Description": "Current Lambda function version",
           "Value": {
-            "Ref": "SendResultsLambdaVersionv6F8UqI7ylPkvgm6bhHKFSUjHrqDppxzlskZsqY4"
+            "Ref": "SendResultsLambdaVersionNiJsT7DUmgOg3uj6ws2bNmXg7egpCPgIDlIR0HMs"
           },
           "Export": {
             "Name": "sls-poll-voting-Duha-dev-SendResultsLambdaFunctionQualifiedArn"

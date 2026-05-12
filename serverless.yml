@@ -10,7 +10,6 @@ provider:
     EMAIL_USER: ${env:EMAIL_USER}
     EMAIL_PASS: ${env:EMAIL_PASS}
 
-
   iam:
     role:
       statements:
@@ -22,7 +21,24 @@ provider:
             - dynamodb:Query
             - dynamodb:Scan
           Resource: "arn:aws:dynamodb:us-east-1:*:table/PollsTable_Duha"
+
 functions:
+  getPoll:
+    handler: getPoll.handler
+    events:
+      - http:
+          path: /polls/{pollId}
+          method: get
+          cors: true
+          
+  getAllPolls:
+    handler: getAllPolls.handler
+    events:
+      - http:
+          path: /polls
+          method: get
+          cors: true
+
   createPoll:
     handler: createPoll.handler
     events:
@@ -31,15 +47,7 @@ functions:
           method: post
           cors: true
 
-  getPoll:
-    handler: getPoll.handler
-    events:
-      - http:
-          path: /polls/{pollId}
-          method: get
-          cors: true
-
-  submitVote:
+  votePoll:
     handler: submitVote.handler
     events:
       - http:
